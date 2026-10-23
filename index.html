@@ -178,6 +178,39 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   transform:none!important;
 }
 
+
+/* Blockly-style statement blocks: control flow blocks surround an editable statement body. */
+.program{overflow:auto}
+.program-item{display:block;width:max-content;max-width:100%;min-width:0;margin:0 0 9px;padding:0;position:relative}
+.program-item>.block:not(.control-toolbox){display:flex;align-items:center;gap:6px;width:max-content;max-width:100%;min-height:38px;margin:0;padding:10px 13px}
+.program-item>.block .remove{flex-shrink:0}
+.program-item .block-container{--control-color:#e83b9b;--control-tint:#fff0f7;width:max-content;max-width:100%;min-width:min(100%,235px);position:relative;margin:0 0 3px;padding:0;background:transparent;border:0;box-shadow:none;overflow:visible}
+.program-item .block-container.condition-container{--control-color:#287fd0;--control-tint:#edf7ff}
+.program-item .block-container.left-container,.program-item .block-container.right-container{--control-color:#8458d6;--control-tint:#f5f0ff}
+.control-header{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-height:39px;width:100%;padding:8px 10px;background:var(--control-color);color:#fff;border-radius:8px 8px 3px 3px;font-weight:850;line-height:1.25;position:relative;z-index:1}
+.control-title{flex:1 1 120px;min-width:0;white-space:normal}
+.control-header .mini{background:#fff;color:#36485a;border:0;border-radius:6px;padding:4px 6px;font-weight:850;max-width:62px}
+.control-delete{flex-shrink:0;border:0;border-radius:6px;padding:2px 7px;background:#ffffff35;color:#fff;font-weight:900}
+.container-body{min-height:60px;width:100%;padding:10px 9px 8px 12px;background:var(--control-tint);border-left:5px solid var(--control-color);border-right:5px solid var(--control-color);display:flex;flex-direction:column;align-items:stretch;gap:4px;transition:background .15s,border-color .15s}
+.container-body.drag-over{background:#fff6ca;border-left-color:#f0a52d;border-right-color:#f0a52d;outline:2px dashed #f0a52d;outline-offset:-4px}
+.container-placeholder{border:2px dashed color-mix(in srgb,var(--control-color) 38%,white);border-radius:7px;min-height:40px;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;color:#71869b;font-size:11px;font-weight:700;background:#ffffffb8;pointer-events:none}
+.container-bottom{display:flex;align-items:center;min-height:22px;width:62%;padding:2px 8px 3px 11px;background:var(--control-tint);border-left:5px solid var(--control-color);border-bottom:5px solid var(--control-color);border-radius:0 0 0 7px;color:var(--control-color);font-size:10px;font-weight:850}
+.control-toolbox{--control-color:#e83b9b;--control-tint:#fff0f7;display:block!important;width:100%!important;min-width:0!important;max-width:100%;padding:0!important;margin:9px 0 14px!important;position:relative;border:0!important;border-radius:8px 8px 0 0!important;background:transparent!important;box-shadow:none!important;overflow:visible!important}
+.control-toolbox.condition{--control-color:#287fd0;--control-tint:#edf7ff}
+.control-toolbox.control{--control-color:#8458d6;--control-tint:#f5f0ff}
+.control-toolbox:before{content:"";position:absolute;z-index:2;left:20px;top:-4px;bottom:auto;width:19px;height:7px;background:var(--control-color);border-radius:5px 5px 0 0}
+.control-toolbox:after{content:"";position:absolute;z-index:2;left:20px;bottom:-5px;width:19px;height:7px;background:var(--control-color);border-radius:0 0 5px 5px}
+.control-toolbox-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px;min-height:34px;padding:8px 8px;background:var(--control-color);color:#fff;border-radius:8px 8px 3px 3px;font-weight:850;line-height:1.2}
+.control-toolbox-hole{min-height:27px;padding:5px 7px 5px 12px;margin:0 0 0 0;border-left:5px solid var(--control-color);border-right:5px solid var(--control-color);background:var(--control-tint);color:#6e7e91;font-size:10px;font-weight:700;white-space:normal}
+.control-toolbox-foot{width:60%;height:10px;border-left:5px solid var(--control-color);border-bottom:5px solid var(--control-color);border-radius:0 0 0 6px;background:var(--control-tint)}
+#toolbox .control-toolbox .mini{position:relative;z-index:3}
+.program-item .program-item{margin-bottom:7px}
+@media(max-width:480px){
+ .program-item>.block:not(.control-toolbox){min-width:0}
+ .program-item .block-container{min-width:min(100%,195px)}
+ .control-title{flex-basis:100px}
+}
+
 </style>
 </head>
 <body>
@@ -205,10 +238,22 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
           <div class="block move" draggable="true" data-type="forward">⬆ maju</div>
           <div class="block turn" draggable="true" data-type="left">↶ belok kiri</div>
           <div class="block turn" draggable="true" data-type="right">↷ belok kanan</div>
-          <div class="block loop" draggable="true" data-type="repeat">⟳ ulangi <select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select> kali</div>
-          <div class="block condition" draggable="true" data-type="if">◆ jika jalur di depan</div>
-          <div class="block control" draggable="true" data-type="ifleft">↰ jika jalur kiri</div>
-          <div class="block control" draggable="true" data-type="ifright">↱ jika jalur kanan</div>
+          <div class="block loop control-toolbox" draggable="true" data-type="repeat">
+            <div class="control-toolbox-head">⟳ ulangi <select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select> kali</div>
+            <div class="control-toolbox-hole">letakkan blok di sini</div><div class="control-toolbox-foot"></div>
+          </div>
+          <div class="block condition control-toolbox" draggable="true" data-type="if">
+            <div class="control-toolbox-head">◆ jika jalur di depan</div>
+            <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
+          </div>
+          <div class="block control control-toolbox" draggable="true" data-type="ifleft">
+            <div class="control-toolbox-head">↰ jika jalur kiri</div>
+            <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
+          </div>
+          <div class="block control control-toolbox" draggable="true" data-type="ifright">
+            <div class="control-toolbox-head">↱ jika jalur kanan</div>
+            <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
+          </div>
           <p style="font-size:11px;color:#84929c;line-height:1.5">Klik blok untuk menambahkan. Atau seret ke area program.</p>
         </aside>
         <section class="program-panel">
@@ -314,47 +359,180 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   }
   function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Kiko di titik awal');}
   function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
-  function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika depan terbuka → maju',ifleft:'↰ jika kiri terbuka → belok kiri',ifright:'↱ jika kanan terbuka → belok kanan'})[type]||type}
-  function addItem(type,n=4){
-    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});setRunButtonState('idle');setRunButtonState('idle');
-    renderProgram();updateCount();
+  function isContainer(item){return ['repeat','if','ifleft','ifright'].includes(item.type)}
+  function makeItem(type,n=4){
+    return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[]};
+  }
+  function blockLabel(type,n){
+    return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika jalur di depan',ifleft:'↰ jika jalur kiri',ifright:'↱ jika jalur kanan'})[type]||type;
+  }
+  function blockClass(type){
+    return type==='forward'?'move':(['left','right'].includes(type)?'turn':type==='repeat'?'loop':type==='if'?'condition':'control');
+  }
+  function countNodes(list){
+    return list.reduce((total,item)=>total+1+(item.children?countNodes(item.children):0),0);
+  }
+  function updateCount(){$('#count').textContent=countNodes(items)}
+  function findNode(list,id){
+    for(const item of list){
+      if(item.id===id)return item;
+      const nested=findNode(item.children||[],id);
+      if(nested)return nested;
+    }
+    return null;
+  }
+  function removeNode(list,id){
+    const index=list.findIndex(item=>item.id===id);
+    if(index>=0)return list.splice(index,1)[0];
+    for(const item of list){
+      const nested=removeNode(item.children||[],id);
+      if(nested)return nested;
+    }
+    return null;
+  }
+  function containsNode(item,id){
+    return item.id===id||(item.children||[]).some(child=>containsNode(child,id));
+  }
+  function insertIntoList(list,item,beforeId=null){
+    const index=beforeId?list.findIndex(existing=>existing.id===beforeId):-1;
+    if(index<0)list.push(item);else list.splice(index,0,item);
+  }
+  function dropIntoList(event,targetList,ownerId=null,beforeId=null){
+    event.preventDefault();
+    event.stopPropagation();
+    const payload=event.dataTransfer.getData('text/plain');
+    if(!payload)return;
+    if(payload.startsWith('new:')){
+      const [,type,n]=payload.split(':');
+      insertIntoList(targetList,makeItem(type,n),beforeId);
+    }else if(payload.startsWith('move:')){
+      const movingId=payload.slice(5);
+      if(movingId===beforeId)return;
+      const candidate=findNode(items,movingId);
+      if(!candidate)return;
+      if(ownerId&&containsNode(candidate,ownerId)){
+        toast('Blok tidak bisa dimasukkan ke dalam dirinya sendiri.');
+        return;
+      }
+      const moving=removeNode(items,movingId);
+      if(moving)insertIntoList(targetList,moving,beforeId);
+    }else return;
+    renderProgram();
+    setRunButtonState('idle');
+  }
+  function renderList(list,host,ownerId=null){
+    if(ownerId&&list.length===0){
+      const placeholder=document.createElement('div');
+      placeholder.className='container-placeholder';
+      placeholder.textContent='＋ Taruh blok di sini';
+      host.append(placeholder);
+    }
+    list.forEach(item=>{
+      const row=document.createElement('div');
+      row.className='program-item';
+      row.draggable=true;
+      row.dataset.id=item.id;
+      row.addEventListener('dragstart',event=>{
+        if(event.target.closest('button,select')){event.preventDefault();return}
+        event.dataTransfer.setData('text/plain','move:'+item.id);
+        event.dataTransfer.effectAllowed='move';
+      });
+      row.addEventListener('dragover',event=>{event.preventDefault();row.classList.add('drop-target')});
+      row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
+      row.addEventListener('drop',event=>{
+        row.classList.remove('drop-target');
+        dropIntoList(event,list,ownerId,item.id);
+      });
+
+      if(isContainer(item)){
+        const frame=document.createElement('div');
+        frame.className='block-container '+(item.type==='repeat'?'loop-container':item.type==='if'?'condition-container':item.type==='ifleft'?'left-container':'right-container');
+        const header=document.createElement('div');
+        header.className='control-header';
+        const title=document.createElement('span');
+        title.className='control-title';
+        title.textContent=item.type==='repeat'?'⟳ ulangi':blockLabel(item.type,item.n);
+        header.append(title);
+        if(item.type==='repeat'){
+          const select=document.createElement('select');
+          select.className='mini';
+          select.setAttribute('aria-label','Jumlah pengulangan');
+          [2,3,4,5,6,8,10].forEach(value=>{
+            const option=document.createElement('option');
+            option.value=value;option.textContent=value;
+            if(value===item.n)option.selected=true;
+            select.append(option);
+          });
+          select.addEventListener('click',event=>event.stopPropagation());
+          select.addEventListener('change',event=>{item.n=Number(event.target.value);renderProgram();setRunButtonState('idle')});
+          header.append(select);
+          const kali=document.createElement('span');kali.textContent='kali';header.append(kali);
+        }
+        const remove=document.createElement('button');
+        remove.className='control-delete';remove.type='button';remove.textContent='×';remove.title='Hapus blok dan isinya';
+        remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
+        header.append(remove);
+
+        const body=document.createElement('div');
+        body.className='container-body';
+        body.dataset.ownerId=item.id;
+        body.addEventListener('dragover',event=>{event.preventDefault();event.stopPropagation();body.classList.add('drag-over');event.dataTransfer.dropEffect='copy'});
+        body.addEventListener('dragleave',event=>{if(!body.contains(event.relatedTarget))body.classList.remove('drag-over')});
+        body.addEventListener('drop',event=>{body.classList.remove('drag-over');dropIntoList(event,item.children,item.id,null)});
+        renderList(item.children,body,item.id);
+
+        const footer=document.createElement('div');
+        footer.className='container-bottom';
+        footer.textContent=item.type==='repeat'?'akhir ulangi':'akhir jika';
+        frame.append(header,body,footer);
+        row.append(frame);
+      }else{
+        const block=document.createElement('div');
+        block.className='block '+blockClass(item.type);
+        const label=document.createElement('span');
+        label.textContent=blockLabel(item.type,item.n);
+        block.append(label);
+        const remove=document.createElement('button');
+        remove.className='remove';remove.type='button';remove.textContent='×';remove.title='Hapus blok';
+        remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
+        block.append(remove);
+        row.append(block);
+      }
+      host.append(row);
+    });
   }
   function renderProgram(){
-    programEl.querySelectorAll('.program-item,.program-empty').forEach(e=>e.remove());
-    items.forEach((item,index)=>{
-      const row=document.createElement('div');row.className='program-item';row.draggable=true;row.dataset.index=index;
-      const b=document.createElement('div');b.className='block '+(['forward'].includes(item.type)?'move':['left','right'].includes(item.type)?'turn':item.type==='repeat'?'loop':item.type==='if'?'condition':'control');
-      b.append(document.createTextNode(blockLabel(item.type,item.n)));
-      if(item.type==='repeat'){
-        const sel=document.createElement('select');sel.className='mini';sel.setAttribute('aria-label','Jumlah pengulangan');
-        [2,4,6,8,10].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===item.n)o.selected=true;sel.append(o)});
-        sel.addEventListener('change',e=>{item.n=Number(e.target.value);renderProgram();setRunButtonState('idle')});b.append(sel);
-      }
-      const del=document.createElement('button');del.className='remove';del.textContent='×';del.title='Hapus blok';del.addEventListener('click',e=>{e.stopPropagation();items.splice(index,1);renderProgram();updateCount();setRunButtonState('idle')});b.append(del);
-      row.append(b);
-      if(['repeat','if','ifleft','ifright'].includes(item.type)){
-        const child=document.createElement('div');child.className='indent';row.append(child);
-        const sub=document.createElement('span');sub.style.cssText='font-size:11px;color:#82919c';sub.textContent=item.type==='repeat'?'blok diulang': 'jika benar';row.append(sub);
-      }
-      row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(index));e.dataTransfer.effectAllowed='move'});
-      row.addEventListener('dragover',e=>{e.preventDefault();row.classList.add('drop-target')});
-      row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
-      row.addEventListener('drop',e=>{e.preventDefault();e.stopPropagation();row.classList.remove('drop-target');const val=e.dataTransfer.getData('text/plain');if(val.startsWith('new:')){const [,type,n]=val.split(':');addItem(type,n);return;}const from=Number(val);if(Number.isInteger(from)&&from>=0&&from<items.length&&from!==index){const [moved]=items.splice(from,1);items.splice(index,0,moved);renderProgram()}});
-      programEl.append(row);
-    });
+    programEl.innerHTML='';
+    if(items.length===0){
+      const empty=document.createElement('div');
+      empty.className='program-empty';
+      empty.id='empty';
+      empty.innerHTML='Mulai susun programmu di sini.<br>💡 Seret blok kontrol, lalu letakkan perintah di dalamnya.';
+      programEl.append(empty);
+    }else{
+      renderList(items,programEl,null);
+    }
     updateCount();
   }
-  // Drag blocks from toolbox into the program; clicking a toolbox block is also supported.
-  document.querySelectorAll('#toolbox .block').forEach(b=>{
-    b.addEventListener('click',e=>{if(e.target.tagName==='SELECT')return;addItem(b.dataset.type,b.querySelector('select')?.value||4)});
-    b.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain','new:'+b.dataset.type+':'+(b.querySelector('select')?.value||4));e.dataTransfer.effectAllowed='copy'});
+  function addItem(type,n=4){
+    items.push(makeItem(type,n));
+    setRunButtonState('idle');
+    renderProgram();
+  }
+
+  // Toolbox blocks may be clicked to append at the root, or dragged into a nested statement area.
+  document.querySelectorAll('#toolbox .block').forEach(block=>{
+    block.addEventListener('click',event=>{
+      if(event.target.tagName==='SELECT')return;
+      addItem(block.dataset.type,block.querySelector('select')?.value||4);
+    });
+    block.addEventListener('dragstart',event=>{
+      event.dataTransfer.setData('text/plain','new:'+block.dataset.type+':'+(block.querySelector('select')?.value||4));
+      event.dataTransfer.effectAllowed='copy';
+    });
   });
-  programEl.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});
-  programEl.addEventListener('drop',e=>{
-    e.preventDefault();const val=e.dataTransfer.getData('text/plain');
-    if(val.startsWith('new:')){const [,type,n]=val.split(':');addItem(type,n)}
-    else if(val!==''){const from=Number(val);if(Number.isInteger(from)&&from>=0&&from<items.length){const [moved]=items.splice(from,1);items.push(moved);renderProgram()}}
-  });
+  programEl.addEventListener('dragover',event=>{event.preventDefault();event.dataTransfer.dropEffect='copy'});
+  programEl.addEventListener('drop',event=>dropIntoList(event,items,null,null));
   function pathAhead(offset=0){const d=dirs[(dir+offset+4)%4];return isOpen(robot.r+d.r,robot.c+d.c)}
   function act(type){
     if(won)return false;
@@ -369,36 +547,29 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     }
     return true;
   }
-  function flatten(program){
-    const out=[];
-    for(const item of program){
-      if(item.type==='repeat'){for(let i=0;i<item.n;i++)out.push({type:'forward'});}
-      else if(['if','ifleft','ifright'].includes(item.type)){
-        const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
-        if(pathAhead(offset))out.push({type:item.type==='ifleft'?'left':item.type==='ifright'?'right':'forward'});
-      } else out.push(item);
+  function compile(){return items.map(cloneItem)}
+  function cloneItem(item){return {...item,children:(item.children||[]).map(cloneItem)}}
+  async function executeList(list){
+    for(const item of list){
+      if(won)return true;
+      const ok=await executeItem(item);
+      if(!ok)return false;
     }
-    return out;
+    return true;
   }
-  function compile(){return items.map(item=>({...item}))}
   async function executeItem(item){
     if(won)return true;
     if(item.type==='repeat'){
       for(let i=0;i<item.n&&!won;i++){
-        await new Promise(resolve=>setTimeout(resolve,260));
-        if(!act('forward'))return false;
+        const ok=await executeList(item.children||[]);
+        if(!ok)return false;
       }
       return true;
     }
     if(['if','ifleft','ifright'].includes(item.type)){
       const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
-      const clear=pathAhead(offset);
-      
-      if(!clear)return true;
-      await new Promise(resolve=>setTimeout(resolve,260));
-      if(item.type==='ifleft')return act('left');
-      if(item.type==='ifright')return act('right');
-      return act('forward');
+      if(pathAhead(offset))return executeList(item.children||[]);
+      return true;
     }
     await new Promise(resolve=>setTimeout(resolve,260));
     return act(item.type);
