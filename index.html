@@ -159,7 +159,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     <div class="card maze-card">
       <div class="maze-wrap"><div class="maze" id="maze" role="img" aria-label="Labirin permainan"></div></div>
       <div class="controls"><button class="primary" id="runMaze">▶ Jalankan</button><button class="secondary" id="stepMaze">Langkah ▸</button><span class="status" id="mazeStatus">Siap memulai</span></div>
-      <div class="maze-legend" aria-label="Legenda labirin"><span><i class="legend-swatch legend-path"></i>Jalur aman</span><span><i class="legend-swatch legend-grass"></i>Semak</span><span><i class="legend-flag">'+FLAG_SVG+'</i>Tujuan</span></div>
+      <div class="maze-legend" aria-label="Legenda labirin"><span><i class="legend-swatch legend-path"></i>Jalur aman</span><span><i class="legend-swatch legend-grass"></i>Semak</span><span><i class="legend-flag"></i>Tujuan</span></div>
     </div>
     <div class="card hint"><strong>💡 Butuh bantuan?</strong><p>Susun blok perintah di area program. Jalur berwarna emas adalah lintasan aman. Rumput dan batu adalah area terhalang. Rangkai blok maju dan belok agar Kiko mencapai bendera.</p></div>
   </section>
@@ -411,7 +411,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
   // Keyboard shortcut: Ctrl+Enter runs program.
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runAll()}});
-  $('.rabbit-badge').innerHTML=RABBIT_SVG;drawMaze();renderProgram();setStatus('Kiko siap bertualang!');
+  $('.rabbit-badge').innerHTML=RABBIT_SVG;$('.legend-flag').innerHTML=FLAG_SVG;drawMaze();renderProgram();setStatus('Kiko siap bertualang!');
 })();
 </script>
 </body>
