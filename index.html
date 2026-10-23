@@ -347,6 +347,149 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .block-container.ifelse-container .control-header{border-radius:8px 8px 2px 2px}
 .block-container.ifelse-container .container-bottom{border-radius:0 0 0 7px}
 
+
+/* Scratch-like geometry for every block category: stack connectors, hat blocks and inline fields. */
+.toolbox{--stack-surface:#f1f8fc}
+.program{--stack-surface:#fff}
+.container-body{--stack-surface:var(--control-tint)}
+.block.stack-block,
+.toolbox .block[data-category="motion"],
+.toolbox .block[data-category="looks"],
+.toolbox .block[data-category="sound"]{
+  position:relative;
+  border:0;
+  border-radius:4px;
+  overflow:visible;
+  padding:11px 12px 11px 13px;
+  min-height:36px;
+  box-shadow:inset 0 -3px #00000010,0 1px 0 #ffffff20;
+  line-height:1.25;
+}
+.block.stack-block:before,
+.toolbox .block[data-category="motion"]:before,
+.toolbox .block[data-category="looks"]:before,
+.toolbox .block[data-category="sound"]:before{
+  content:"";
+  position:absolute;
+  left:18px;
+  top:0;
+  bottom:auto;
+  width:21px;
+  height:6px;
+  background:var(--stack-surface,#fff);
+  border-radius:0 0 4px 4px;
+  z-index:2;
+}
+.block.stack-block:after,
+.toolbox .block[data-category="motion"]:after,
+.toolbox .block[data-category="looks"]:after,
+.toolbox .block[data-category="sound"]:after{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:auto;
+  top:auto;
+  bottom:-5px;
+  width:21px;
+  height:7px;
+  background:inherit;
+  border-radius:0 0 4px 4px;
+  z-index:2;
+  pointer-events:none;
+}
+.block.stack-block>span,.block.stack-block>input,.block.stack-block>select,
+.block.stack-block>button{position:relative;z-index:3}
+.block.stack-block.motion-stack,
+.toolbox .block[data-category="motion"]{background:#4c97ff!important;color:#fff!important}
+.block.stack-block.looks-stack,
+.toolbox .block[data-category="looks"]{background:#9966ff!important;color:#fff!important}
+.block.stack-block.sound-stack,
+.toolbox .block[data-category="sound"]{background:#cf63cf!important;color:#fff!important}
+.block.stack-block .remove{
+  background:#ffffffd9;color:#4b5b6a;border-radius:7px;
+  min-width:22px;min-height:22px;font-weight:900;
+}
+.scratch-input,.scratch-input-palette{
+  display:inline-flex;align-items:center;justify-content:center;
+  max-width:150px;min-width:60px;padding:4px 9px;
+  border:0;border-radius:12px;background:#fff;color:#33485a;
+  box-shadow:inset 0 -1px 0 #d6dfe7;font-size:11px;font-weight:800;
+}
+.scratch-input{font-family:inherit;min-width:88px;outline-offset:2px}
+.scratch-input:focus{outline:2px solid #ffda67}
+.scratch-input-palette{background:#f8f4ff;color:#5a477a;white-space:nowrap}
+.sound-choice{min-width:104px;max-width:126px;cursor:pointer}
+.block.stack-block.looks-stack,.block.stack-block.sound-stack{gap:6px}
+.block.stack-block .scratch-input{z-index:4}
+.toolbox .block[data-category="motion"]{margin-bottom:13px}
+.toolbox .block[data-category="looks"],.toolbox .block[data-category="sound"]{margin-bottom:13px}
+.toolbox .block[data-category="motion"]:before,.toolbox .block[data-category="looks"]:before,.toolbox .block[data-category="sound"]:before{z-index:4}
+.toolbox .block[data-category="motion"]>span,.toolbox .block[data-category="looks"]>span,.toolbox .block[data-category="sound"]>span{position:relative;z-index:3}
+.event-toolbox,.event-toolbox.hat-block{
+  position:relative;
+  background:#ffbf00!important;color:#63490b!important;
+  border:0;border-radius:16px 16px 3px 3px!important;
+  padding:15px 12px 10px!important;
+  box-shadow:inset 0 -3px #0000000d,0 1px 0 #ffffff25;
+}
+.event-toolbox:before,.event-toolbox.hat-block:before{display:none!important}
+.event-toolbox:after,.event-toolbox.hat-block:after{
+  display:block!important;content:"";position:absolute;left:18px;bottom:-5px;
+  width:21px;height:7px;background:#ffbf00;border-radius:0 0 4px 4px;
+}
+.event-toolbox-tail{display:none!important}
+.event-toolbox-head{font-weight:900}
+.event-hat-header{
+  position:relative;z-index:1;display:flex;align-items:center;gap:8px;
+  min-height:43px;padding:17px 11px 10px 12px;
+  background:#ffbf00;color:#64490c;font-weight:900;font-size:12px;
+  border-radius:20px 20px 3px 3px;
+  box-shadow:inset 0 -3px #0000000e;
+}
+.event-hat-header:after{
+  content:"";position:absolute;left:18px;bottom:-5px;width:21px;height:7px;
+  background:#ffbf00;border-radius:0 0 4px 4px;
+}
+.event-script-container{width:max-content;max-width:100%;min-width:172px;position:relative;margin:0;padding:0;background:transparent;border:0;box-shadow:none;overflow:visible}
+.event-script-container:before,.event-script-container:after{display:none!important}
+.event-script-container .control-delete{
+  margin-left:auto;border:0;border-radius:7px;padding:2px 7px;
+  background:#ffffffb8;color:#6d5213;font-weight:900;
+}
+.event-script-body{
+  display:flex;flex-direction:column;align-items:stretch;gap:0;
+  min-width:100%;padding:0 0 0 0;background:transparent;border:0;overflow:visible;
+}
+.event-script-body>.program-item{width:100%;margin:0}
+.event-script-body>.container-placeholder{
+  min-height:36px;padding:9px;background:#fff9e4;color:#9a792c;
+  border:1px dashed #edcd68;border-radius:3px 7px 7px 7px;font-size:11px;
+}
+.program-item>.block.stack-block{min-width:172px;max-width:100%;margin:0;padding:11px 12px 11px 13px}
+.program-item>.block.stack-block .remove{margin-left:5px}
+.program-item>.block.stack-block .scratch-input{min-width:75px;max-width:118px}
+.program-item>.block.stack-block .sound-choice{min-width:98px}
+.program-item>.block.stack-block.motion-stack{background:#4c97ff!important}
+.program-item>.block.stack-block.looks-stack{background:#9966ff!important}
+.program-item>.block.stack-block.sound-stack{background:#cf63cf!important}
+.program-item>.block.stack-block:before{background:var(--stack-surface,#fff)}
+.container-body>.program-item>.block.stack-block{--stack-surface:var(--control-tint)}
+@media(max-width:480px){
+ .program-item>.block.stack-block{min-width:0}
+ .event-script-container{min-width:0}
+ .scratch-input{min-width:62px;max-width:104px}
+ .scratch-input-palette{min-width:0;padding:4px 6px}
+}
+
+
+/* Interactive block fields and stack/hat shapes: final palette polish */
+.toolbox .block[data-category="motion"]:after,.toolbox .block[data-category="looks"]:after,.toolbox .block[data-category="sound"]:after{display:block!important}
+.toolbox .block[data-category="motion"]:before,.toolbox .block[data-category="looks"]:before,.toolbox .block[data-category="sound"]:before{display:block!important}
+.block.stack-block{border-radius:4px!important}
+.block.stack-block:before{display:block!important}
+.block.stack-block:after{display:block!important}
+.event-hat-header .control-delete{flex-shrink:0}
+
 </style>
 </head>
 <body>
@@ -381,14 +524,14 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
             <button class="block-category" type="button" data-block-category="control" aria-selected="false">⟳ Kontrol</button>
           </div>
           <h3 id="toolboxTitle">Gerak</h3>
-          <div class="block move" draggable="true" data-type="forward" data-category="motion">⬆ maju</div>
-          <div class="block turn" draggable="true" data-type="left" data-category="motion">↶ belok kiri</div>
-          <div class="block turn" draggable="true" data-type="right" data-category="motion">↷ belok kanan</div>
-          <div class="block event-toolbox" draggable="true" data-type="event-start" data-category="events">
+          <div class="block stack-block" draggable="true" data-type="forward" data-category="motion">⬆ maju</div>
+          <div class="block stack-block" draggable="true" data-type="left" data-category="motion">↶ belok kiri</div>
+          <div class="block stack-block" draggable="true" data-type="right" data-category="motion">↷ belok kanan</div>
+          <div class="block event-toolbox hat-block" draggable="true" data-type="event-start" data-category="events">
             <div class="event-toolbox-head">🚩 ketika mulai diklik</div><div class="event-toolbox-tail"></div>
           </div>
-          <div class="block looks-block" draggable="true" data-type="say" data-category="looks">💬 katakan “Semangat!”</div>
-          <div class="block sound-block" draggable="true" data-type="sound" data-category="sound">♫ bunyikan nada</div>
+          <div class="block stack-block looks-stack" draggable="true" data-type="say" data-category="looks"><span>💬 katakan</span><span class="scratch-input-palette">Semangat!</span></div>
+          <div class="block stack-block sound-stack" draggable="true" data-type="sound" data-category="sound"><span>♫ bunyikan</span><span class="scratch-input-palette">nada ceria ▾</span></div>
           <div class="block loop control-toolbox" draggable="true" data-type="repeat" data-category="control">
             <div class="control-toolbox-head"><span>ulangi</span><select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select><span>kali</span></div>
             <div class="control-toolbox-hole">letakkan blok di sini</div><div class="control-toolbox-foot"></div>
@@ -694,13 +837,17 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   }
   function isContainer(item){return ['event-start','repeat','forever','if','ifleft','ifright','ifelse'].includes(item.type)}
   function makeItem(type,n=4){
-    return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[],elseChildren:[]};
+    return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[],elseChildren:[],text:type==='say'?'Semangat!':'',tone:'cheer'};
   }
   function blockLabel(type,n){
     return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan','event-start':'🚩 ketika mulai diklik',say:'💬 katakan “Semangat!”',sound:'♫ bunyikan nada',repeat:`ulangi ${n} kali`,forever:'selamanya',if:'jika jalur depan?',ifleft:'jika jalur kiri?',ifright:'jika jalur kanan?',ifelse:'jika jalur depan? maka / jika tidak'})[type]||type;
   }
   function blockClass(type){
-    return type==='forward'?'move':(['left','right'].includes(type)?'turn':type==='repeat'?'loop':type==='if'?'condition':type==='say'?'looks-block':type==='sound'?'sound-block':type==='event-start'?'event-toolbox':'control');
+    if(type==='forward'||type==='left'||type==='right')return 'stack-block motion-stack '+(type==='forward'?'move':'turn');
+    if(type==='say')return 'stack-block looks-stack looks-block';
+    if(type==='sound')return 'stack-block sound-stack sound-block';
+    if(type==='event-start')return 'hat-block event-toolbox';
+    return type==='repeat'?'loop':type==='if'?'condition':'control';
   }
   function countNodes(list){
     return list.reduce((total,item)=>total+1+countNodes(item.children||[])+countNodes(item.elseChildren||[]),0);
@@ -800,12 +947,35 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       row.draggable=true;
       row.dataset.id=item.id;
       row.addEventListener('dragstart',event=>{
-        if(event.target.closest('button,select')){event.preventDefault();event.stopPropagation();return}
+        if(event.target.closest('button,select,input')){event.preventDefault();event.stopPropagation();return}
         event.dataTransfer.setData('text/plain','move:'+item.id);
         event.dataTransfer.effectAllowed='move';
         event.stopPropagation();
       });
       if(isContainer(item)){
+        if(item.type==='event-start'){
+          const frame=document.createElement('div');
+          frame.className='block-container event-script-container';
+          const hat=document.createElement('div');
+          hat.className='event-hat-header';
+          const title=document.createElement('span');
+          title.textContent='🚩 ketika mulai diklik';
+          hat.append(title);
+          const remove=document.createElement('button');
+          remove.className='control-delete';remove.type='button';remove.textContent='×';remove.title='Hapus skrip';
+          remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
+          hat.append(remove);
+          frame.append(hat);
+          const body=document.createElement('div');
+          body.className='event-script-body';
+          body.dataset.ownerId=item.id;
+          body.addEventListener('dragover',event=>{event.preventDefault();event.stopPropagation();body.classList.add('drag-over');event.dataTransfer.dropEffect='copy'});
+          body.addEventListener('dragleave',event=>{if(!body.contains(event.relatedTarget))body.classList.remove('drag-over')});
+          body.addEventListener('drop',event=>{body.classList.remove('drag-over');dropIntoList(event,item.children,item.id,null)});
+          renderList(item.children,body,item.id);
+          frame.append(body);
+          row.append(frame);
+        }else{
         const frame=document.createElement('div');
         frame.className='block-container '+(item.type==='event-start'?'event-container':item.type==='repeat'?'loop-container':item.type==='forever'?'forever-container':item.type==='ifelse'?'ifelse-container':item.type==='if'?'condition-container':item.type==='ifleft'?'left-container':'right-container');
         const header=document.createElement('div');
@@ -869,12 +1039,32 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         footer.textContent=item.type==='repeat'?'akhir ulangi':item.type==='forever'?'akhir selamanya':item.type==='event-start'?'akhir skrip':item.type==='ifelse'?'akhir jika / jika tidak':'akhir jika';
         frame.append(footer);
         row.append(frame);
+
+        }
       }else{
         const block=document.createElement('div');
         block.className='block '+blockClass(item.type);
-        const label=document.createElement('span');
-        label.textContent=blockLabel(item.type,item.n);
-        block.append(label);
+        block.dataset.type=item.type;
+        if(item.type==='say'){
+          const label=document.createElement('span');label.textContent='💬 katakan';
+          const input=document.createElement('input');
+          input.className='scratch-input';input.type='text';input.maxLength=80;input.value=item.text||'Semangat!';
+          input.setAttribute('aria-label','Teks yang dikatakan Kiko');
+          input.addEventListener('click',event=>event.stopPropagation());
+          input.addEventListener('input',event=>{item.text=event.target.value;setRunButtonState('idle')});
+          block.append(label,input);
+        }else if(item.type==='sound'){
+          const label=document.createElement('span');label.textContent='♫ bunyikan';
+          const select=document.createElement('select');select.className='scratch-input sound-choice';select.setAttribute('aria-label','Pilih bunyi');
+          [['cheer','nada ceria'],['bell','lonceng'],['win','nada kemenangan']].forEach(([value,text])=>{const option=document.createElement('option');option.value=value;option.textContent=text;if((item.tone||'cheer')===value)option.selected=true;select.append(option)});
+          select.addEventListener('click',event=>event.stopPropagation());
+          select.addEventListener('change',event=>{item.tone=event.target.value;setRunButtonState('idle')});
+          block.append(label,select);
+        }else{
+          const label=document.createElement('span');
+          label.textContent=blockLabel(item.type,item.n);
+          block.append(label);
+        }
         const remove=document.createElement('button');
         remove.className='remove';remove.type='button';remove.textContent='×';remove.title='Hapus blok';
         remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
@@ -914,7 +1104,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   // Toolbox blocks may be clicked to append at the root, or dragged into a nested statement area.
   document.querySelectorAll('#toolbox .block').forEach(block=>{
     block.addEventListener('click',event=>{
-      if(event.target.tagName==='SELECT')return;
+      if(event.target.matches('select,input'))return;
       addItem(block.dataset.type,block.querySelector('select')?.value||4);
     });
     block.addEventListener('dragstart',event=>{
@@ -956,11 +1146,11 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(won)return true;
     if(item.type==='event-start')return executeList(item.children||[]);
     if(item.type==='say'){
-      await showSpeech('Semangat!');
+      await showSpeech(item.text||'Semangat!');
       return true;
     }
     if(item.type==='sound'){
-      playFriendlyTone();
+      playFriendlyTone(item.tone||'cheer');
       await new Promise(resolve=>setTimeout(resolve,180));
       return true;
     }
@@ -998,12 +1188,12 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     await new Promise(resolve=>setTimeout(resolve,850));
     bubble.classList.remove('visible');
   }
-  function playFriendlyTone(){
+  function playFriendlyTone(tone='cheer'){
     try{
       const AudioContextClass=window.AudioContext||window.webkitAudioContext;
       if(!AudioContextClass)return;
       const audio=new AudioContextClass();
-      const notes=[660,880,990];
+      const notes=tone==='bell'?[880,660,880]:tone==='win'?[523,659,784,1046]:[660,880,990];
       notes.forEach((frequency,index)=>{
         const osc=audio.createOscillator();
         const gain=audio.createGain();
