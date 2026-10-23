@@ -191,7 +191,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .control-title{flex:1 1 120px;min-width:0;white-space:normal}
 .control-header .mini{background:#fff;color:#36485a;border:0;border-radius:6px;padding:4px 6px;font-weight:850;max-width:62px}
 .control-delete{flex-shrink:0;border:0;border-radius:6px;padding:2px 7px;background:#ffffff35;color:#fff;font-weight:900}
-.container-body{min-height:60px;width:100%;padding:10px 9px 8px 12px;background:var(--control-tint);border-left:5px solid var(--control-color);border-right:5px solid var(--control-color);display:flex;flex-direction:column;align-items:stretch;gap:4px;transition:background .15s,border-color .15s}
+.container-body{min-height:60px;width:100%;padding:8px 9px 8px 12px;background:var(--control-tint);border-left:5px solid var(--control-color);border-right:5px solid var(--control-color);display:flex;flex-direction:column;align-items:stretch;gap:2px;transition:background .15s,border-color .15s}
 .container-body.drag-over{background:#fff6ca;border-left-color:#f0a52d;border-right-color:#f0a52d;outline:2px dashed #f0a52d;outline-offset:-4px}
 .container-placeholder{border:2px dashed color-mix(in srgb,var(--control-color) 38%,white);border-radius:7px;min-height:40px;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;color:#71869b;font-size:11px;font-weight:700;background:#ffffffb8;pointer-events:none}
 .container-bottom{display:flex;align-items:center;min-height:22px;width:62%;padding:2px 8px 3px 11px;background:var(--control-tint);border-left:5px solid var(--control-color);border-bottom:5px solid var(--control-color);border-radius:0 0 0 7px;color:var(--control-color);font-size:10px;font-weight:850}
@@ -225,6 +225,24 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .container-body.drag-over .container-placeholder{border-color:#efad2d;background:#fff8df;color:#936314}
 #toolbox .control-toolbox{cursor:grab}
 #toolbox .control-toolbox:active{cursor:grabbing}
+
+
+/* Dedicated insertion slots make multiple nested statements easy to append/reorder. */
+.statement-dropzone{
+  height:8px;min-height:8px;flex:0 0 8px;width:100%;position:relative;
+  border-radius:7px;margin:1px 0;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px dashed transparent;transition:height .12s,background .12s,border-color .12s;
+}
+.statement-dropzone>span{opacity:0;pointer-events:none;font-size:10px;font-weight:800;color:#58768a;white-space:nowrap}
+.statement-dropzone.active{
+  height:27px;min-height:27px;flex-basis:27px;background:#fff2c8;border:1px dashed #e4a52c;
+}
+.statement-dropzone.active>span{opacity:1}
+.container-body>.statement-dropzone{margin:0}
+.container-body>.statement-dropzone.active{min-height:26px;height:26px;flex-basis:26px}
+.container-body>.program-item{flex:0 0 auto;width:100%}
+.container-body>.container-placeholder{flex:0 0 auto}
+.program-item.drop-target{border-top:0}
 
 </style>
 </head>
@@ -435,14 +453,38 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     renderProgram();
     setRunButtonState('idle');
   }
+  function makeDropZone(list,ownerId=null,beforeId=null){
+    const zone=document.createElement('div');
+    zone.className='statement-dropzone';
+    zone.setAttribute('role','presentation');
+    zone.innerHTML='<span>＋ Letakkan blok di sini</span>';
+    zone.addEventListener('dragover',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      zone.classList.add('active');
+      const payload=event.dataTransfer.getData('text/plain');
+      event.dataTransfer.dropEffect=payload.startsWith('new:')?'copy':'move';
+    });
+    zone.addEventListener('dragleave',event=>{
+      if(!zone.contains(event.relatedTarget))zone.classList.remove('active');
+    });
+    zone.addEventListener('drop',event=>{
+      zone.classList.remove('active');
+      dropIntoList(event,list,ownerId,beforeId);
+    });
+    return zone;
+  }
   function renderList(list,host,ownerId=null){
     if(ownerId&&list.length===0){
       const placeholder=document.createElement('div');
       placeholder.className='container-placeholder';
-      placeholder.textContent='＋ Taruh blok di sini';
+      placeholder.textContent='Ruang perintah kosong — jatuhkan blok di sini';
       host.append(placeholder);
     }
     list.forEach(item=>{
+      // A visible insertion target before each statement makes it easy to add several
+      // statements in sequence, even inside a nested loop or condition.
+      host.append(makeDropZone(list,ownerId,item.id));
       const row=document.createElement('div');
       row.className='program-item';
       row.draggable=true;
@@ -453,13 +495,6 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         event.dataTransfer.effectAllowed='move';
         event.stopPropagation();
       });
-      row.addEventListener('dragover',event=>{event.preventDefault();row.classList.add('drop-target')});
-      row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
-      row.addEventListener('drop',event=>{
-        row.classList.remove('drop-target');
-        dropIntoList(event,list,ownerId,item.id);
-      });
-
       if(isContainer(item)){
         const frame=document.createElement('div');
         frame.className='block-container '+(item.type==='repeat'?'loop-container':item.type==='if'?'condition-container':item.type==='ifleft'?'left-container':'right-container');
@@ -488,7 +523,6 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         remove.className='control-delete';remove.type='button';remove.textContent='×';remove.title='Hapus blok dan isinya';
         remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
         header.append(remove);
-
         const body=document.createElement('div');
         body.className='container-body';
         body.dataset.ownerId=item.id;
@@ -496,7 +530,6 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         body.addEventListener('dragleave',event=>{if(!body.contains(event.relatedTarget))body.classList.remove('drag-over')});
         body.addEventListener('drop',event=>{body.classList.remove('drag-over');dropIntoList(event,item.children,item.id,null)});
         renderList(item.children,body,item.id);
-
         const footer=document.createElement('div');
         footer.className='container-bottom';
         footer.textContent=item.type==='repeat'?'akhir ulangi':'akhir jika';
@@ -516,6 +549,9 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       }
       host.append(row);
     });
+    // The last insertion zone is the reliable drop target for appending more than one
+    // statement to the end of a container.
+    host.append(makeDropZone(list,ownerId,null));
   }
   function renderProgram(){
     programEl.innerHTML='';
