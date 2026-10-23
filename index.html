@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09a9c6">
+<meta name="description" content="Labirin Koding — belajar logika pemrograman dengan blok visual interaktif.">
+<meta property="og:title" content="Labirin Koding | Visual Coding">
+<meta property="og:description" content="Susun blok, jalankan program, dan pecahkan labirin seperti coding visual.">
+<meta property="og:type" content="website">
+<title>Labirin Koding — Visual Coding</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{--cyan:#08a9c5;--cyan-dark:#078aa4;--ink:#263746;--muted:#70808d;--panel:#fff;--line:#dce3e8;--bg:#edf1f4;--pink:#e91e8b;--blue:#00a8d6;--purple:#7a45c8;--green:#28a745;--orange:#ff9d26}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+button{font:inherit;cursor:pointer;border:0}button:focus-visible,[tabindex]:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+.topbar{height:58px;background:var(--cyan);color:#fff;display:flex;align-items:center;gap:18px;padding:0 20px;box-shadow:0 2px 5px #0002}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:.4px;min-width:190px}.brand-mark{display:grid;grid-template-columns:repeat(2,18px);gap:2px}.brand-mark span{background:#fff;color:#078aa4;font-size:11px;text-align:center;line-height:17px;border-radius:2px}
+.stage-title{font-weight:750;white-space:nowrap}.progress{height:24px;background:#fff5;border-radius:14px;display:flex;align-items:center;padding:0 10px;gap:5px;flex:1;max-width:290px}.progress i{width:8px;height:8px;border:1px solid #fff;border-radius:50%}.progress i.done{background:#fff}.top-actions{margin-left:auto;display:flex;gap:8px}.top-actions button{background:#fff;color:var(--cyan-dark);border-radius:5px;padding:7px 12px;font-weight:750}.top-actions .signin{background:#ff9f28;color:#fff}
+.app{max-width:1450px;margin:0 auto;padding:14px;display:grid;grid-template-columns:minmax(320px,43%) minmax(400px,57%);gap:14px;height:calc(100vh - 58px);min-height:620px}
+.left,.right{min-width:0;display:flex;flex-direction:column;gap:10px}.card{background:var(--panel);border:1px solid #dfe5e9;border-radius:8px;box-shadow:0 1px 2px #2637460a;overflow:hidden}
+.maze-card{padding:10px;display:flex;flex-direction:column;flex:1;min-height:300px}.maze-wrap{display:flex;align-items:center;justify-content:center;flex:1;min-height:240px}.maze{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));width:min(100%,460px);aspect-ratio:1/1;border:2px solid #c4d6c1;border-radius:3px;overflow:hidden}
+.cell{display:flex;align-items:center;justify-content:center;position:relative;font-size:clamp(14px,2.4vw,25px);user-select:none}.grass{background-color:#63d45e;background-image:radial-gradient(#38b74c 1px,transparent 1px),linear-gradient(135deg,#75e86b,#54c950);background-size:9px 9px,100% 100%}.wall{background:linear-gradient(135deg,#b9c2c5,#e2e7e8 45%,#a9b4b8);box-shadow:inset 0 0 0 2px #8f9b9e}.goal{background:#baf4a9}.goal:after{content:"🏁";font-size:clamp(14px,2.5vw,24px)}.player{z-index:2;filter:drop-shadow(0 2px 1px #0004);transition:transform .12s}.goal-dot{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(14px,2.5vw,24px)}
+.controls{display:flex;gap:8px;padding-top:10px}.primary{background:#ff9f28;color:#fff;border-radius:6px;padding:10px 17px;font-weight:800;box-shadow:0 2px 0 #db7c0c}.secondary{background:#fff;border:1px solid var(--line);color:#334b5c;border-radius:6px;padding:9px 14px;font-weight:700}.secondary:disabled{opacity:.45;cursor:not-allowed}.status{margin-left:auto;align-self:center;color:var(--muted);font-size:12px}
+.hint{padding:11px 13px;line-height:1.5}.hint strong{display:block;margin-bottom:3px}.hint p{margin:0;color:#62727f}
+.workspace{display:flex;flex-direction:column;flex:1;min-height:0}.instruction{padding:14px 16px;display:flex;align-items:center;gap:12px}.mascot{font-size:30px}.instruction p{margin:0;line-height:1.45}.instruction strong{color:var(--pink)}
+.tabs{display:flex;align-items:center;background:#f3f5f7;border-bottom:1px solid var(--line);padding:5px;gap:4px}.tab{background:transparent;padding:8px 12px;border-radius:5px;color:#566674;font-weight:700}.tab.active{background:#fff;color:#243b4a;box-shadow:0 1px 3px #0001}.tab-tools{margin-left:auto;display:flex;gap:5px}.small-btn{font-size:12px;background:#8291a0;color:#fff;border-radius:4px;padding:7px 9px;font-weight:700}
+.workarea{display:grid;grid-template-columns:minmax(135px,36%) minmax(0,64%);min-height:0;flex:1}.toolbox{padding:10px;background:#f5f6f8;border-right:1px solid var(--line);overflow:auto}.toolbox h3{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:#82909a;margin:4px 4px 9px}.block{display:block;width:max-content;max-width:100%;position:relative;margin:7px 0;padding:9px 12px 9px 15px;color:#fff;font-weight:750;font-size:12px;border-radius:4px 7px 7px 4px;box-shadow:inset 0 -3px #0001;cursor:grab;user-select:none;white-space:normal}.block:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#ffffff35;border-radius:4px 0 0 4px}.move{background:#09a9c5}.turn{background:#05a8d1}.loop{background:#e91e8b}.condition{background:#168ac4}.control{background:#8b59ca}.block .mini{background:#fff;color:#3b4c59;border:0;border-radius:3px;padding:2px 4px;font-weight:800}.block .remove{background:#ffffff35;border:0;color:#fff;border-radius:3px;margin-left:7px;padding:1px 5px}
+.program-panel{display:flex;flex-direction:column;min-width:0;min-height:0}.program-head{padding:10px 13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e7ebee;color:#6d7d89;font-size:12px}.program-head strong{color:#344a59}.program{padding:12px;overflow:auto;flex:1;min-height:160px;background:#fff}.program-empty{border:2px dashed #d6dfe5;border-radius:7px;padding:18px;text-align:center;color:#8a99a4;margin:10px 0;line-height:1.6}.program-item{display:flex;align-items:center;gap:7px;margin:5px 0;min-height:35px}.program-item .block{margin:0;min-width:145px}.program-item .indent{width:15px;align-self:stretch;border-left:2px solid #d8e0e6;margin-left:5px}.program-item .block .mini{margin-left:4px}.program-item.nested{margin-left:22px}.program-item.drop-target{border-top:3px solid var(--cyan)}
+.workspace-footer{padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;background:#fafbfc}.run-btn{background:#22a447;color:#fff;border-radius:5px;padding:9px 14px;font-weight:800}.step-btn{background:#fff;border:1px solid var(--line);border-radius:5px;padding:8px 12px;font-weight:700;color:#405463}.reset-btn{margin-left:auto;background:#fff;border:1px solid var(--line);border-radius:5px;padding:8px 11px;color:#687987;font-weight:700}
+.console{display:none;padding:9px 12px;background:#1e2934;color:#c7f9d4;font:12px ui-monospace,monospace;max-height:95px;overflow:auto;white-space:pre-wrap}.console.show{display:block}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#253746;color:#fff;padding:11px 16px;border-radius:8px;box-shadow:0 4px 18px #0003;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+.modal-backdrop{display:none;position:fixed;inset:0;background:#13212dcc;z-index:20;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{background:#fff;border-radius:10px;padding:22px;max-width:520px;width:100%;box-shadow:0 15px 50px #0004}.modal h2{margin:0 0 8px}.modal p{line-height:1.55;color:#586b79}.modal button{float:right;background:var(--cyan);color:white;padding:9px 14px;border-radius:5px;font-weight:800}
+@media(max-width:850px){.topbar{padding:0 10px;gap:8px}.brand{min-width:auto}.brand-name{display:none}.stage-title{font-size:12px}.app{height:auto;min-height:0;grid-template-columns:1fr;padding:8px}.left{min-height:460px}.right{min-height:600px}.workarea{grid-template-columns:130px minmax(0,1fr)}.progress{max-width:150px}.top-actions button{padding:6px 8px}.maze{width:min(100%,390px)}}
+@media(max-width:480px){.topbar{height:auto;min-height:54px;flex-wrap:wrap;padding:8px}.progress{display:none}.top-actions{margin-left:auto}.app{grid-template-columns:minmax(0,1fr)}.left{min-height:410px}.workarea{grid-template-columns:112px minmax(0,1fr)}.toolbox{padding:6px}.block{font-size:11px;padding:8px}.program-item .block{min-width:0}.instruction{padding:10px}.tabs{flex-wrap:wrap}.tab{padding:7px}.tab-tools{margin-left:0}.status{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-mark"><span>C</span><span>D</span><span>O</span><span>E</span></div><span class="brand-name">LAB KODING</span></div>
+  <div class="stage-title">Tahap 8: Labirin &amp; Kondisi</div>
+  <div class="progress" aria-label="Progres level"><i class="done"></i><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="top-actions"><button id="helpTop">? Bantuan</button><button class="signin" id="resetTop">Ulangi level</button></div>
+</header>
+<main class="app">
+  <section class="left">
+    <div class="card maze-card">
+      <div class="maze-wrap"><div class="maze" id="maze" role="img" aria-label="Labirin permainan"></div></div>
+      <div class="controls"><button class="primary" id="runMaze">▶ Jalankan</button><button class="secondary" id="stepMaze">Langkah ▸</button><span class="status" id="mazeStatus">Siap memulai</span></div>
+    </div>
+    <div class="card hint"><strong>💡 Butuh bantuan?</strong><p>Susun blok perintah di area program. Gunakan <b>jika jalur di depan</b> dan <b>ulangi sampai tujuan</b> untuk membantu robot menemukan jalan.</p></div>
+  </section>
+  <section class="right">
+    <div class="card instruction"><div class="mascot">🤖</div><p><b>Petunjuk level</b><br>Gunakan blok <strong>jika jalur di depan</strong> untuk memutuskan kapan harus berbelok. Capai bendera dengan urutan perintah yang benar!</p></div>
+    <div class="card workspace">
+      <div class="tabs"><button class="tab active" data-tab="blocks">Blok</button><button class="tab" data-tab="workspace">Workspace: <span id="count">0</span> blok</button><button class="tab" data-tab="console">Log program</button><div class="tab-tools"><button class="small-btn" id="showCode">‹› Lihat Kode</button><button class="small-btn" id="clearProgram">Hapus Semua</button></div></div>
+      <div class="workarea">
+        <aside class="toolbox" id="toolbox"><h3>Perintah</h3>
+          <div class="block move" draggable="true" data-type="forward">⬆ maju</div>
+          <div class="block turn" draggable="true" data-type="left">↶ belok kiri</div>
+          <div class="block turn" draggable="true" data-type="right">↷ belok kanan</div>
+          <div class="block loop" draggable="true" data-type="repeat">⟳ ulangi <select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select> kali</div>
+          <div class="block condition" draggable="true" data-type="if">◆ jika jalur di depan</div>
+          <div class="block control" draggable="true" data-type="ifleft">↰ jika jalur kiri</div>
+          <div class="block control" draggable="true" data-type="ifright">↱ jika jalur kanan</div>
+          <p style="font-size:11px;color:#84929c;line-height:1.5">Klik blok untuk menambahkan. Atau seret ke area program.</p>
+        </aside>
+        <section class="program-panel">
+          <div class="program-head"><strong>Program Saya</strong><span>Urutan dari atas ke bawah</span></div>
+          <div class="program" id="program" aria-label="Area program">
+            <div class="program-empty" id="empty">Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.</div>
+          </div>
+          <div class="console" id="console">Log program akan tampil di sini.</div>
+          <div class="workspace-footer"><button class="run-btn" id="runProgram">▶ Jalankan</button><button class="step-btn" id="stepProgram">Langkah</button><button class="reset-btn" id="resetRobot">↻ Reset robot</button></div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<div class="modal-backdrop" id="modal"><div class="modal"><h2 id="modalTitle">Bantuan</h2><p id="modalText"></p><button id="closeModal">Mengerti</button></div></div>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const mazeEl = $('#maze'), programEl = $('#program'), consoleEl = $('#console');
+  // 9x9 maze: 0 = open, 1 = wall. The path winds from bottom-left to top-right.
+  const walls = new Set([
+    '0,1','0,2','0,3','0,4','0,5','0,7','0,8',
+    '1,1','1,5','1,7','1,8',
+    '2,3','2,4','2,5','2,7',
+    '3,1','3,2','3,3','3,5','3,7',
+    '4,1','4,5','4,6','4,7',
+    '5,1','5,3','5,4','5,5','5,7','5,8',
+    '6,3','6,7','7,1','7,2','7,3','7,5','7,6','7,7',
+    '8,1','8,3','8,4','8,5','8,7'
+  ]);
+  const start = {r:8,c:0}, goal = {r:0,c:8};
+  let robot = {...start}, dir = 0, items = [], running = false, stepQueue = [], won = false;
+  const dirs = [{r:-1,c:0,name:'utara',emoji:'⬆️'},{r:0,c:1,name:'timur',emoji:'➡️'},{r:1,c:0,name:'selatan',emoji:'⬇️'},{r:0,c:-1,name:'barat',emoji:'⬅️'}];
+  function isOpen(r,c){return r>=0&&c>=0&&r<9&&c<9&&!walls.has(`${r},${c}`)}
+  function drawMaze(){
+    mazeEl.innerHTML='';
+    for(let r=0;r<9;r++) for(let c=0;c<9;c++){
+      const cell=document.createElement('div'); cell.className='cell '+(walls.has(`${r},${c}`)?'wall':'grass'); cell.dataset.pos=`${r},${c}`;
+      if(r===goal.r&&c===goal.c){cell.classList.add('goal');cell.innerHTML='<span class="goal-dot">🏁</span>'}
+      if(r===robot.r&&c===robot.c){const p=document.createElement('span');p.className='player';p.textContent='🤖';cell.append(p)}
+      mazeEl.append(cell);
+    }
+  }
+  function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+  function log(msg){consoleEl.textContent += '\\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
+  function setStatus(msg){$('#mazeStatus').textContent=msg}
+  function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Robot di titik awal');}
+  function updateCount(){const n=items.length;$('#count').textContent=n;$('#empty').style.display=n?'none':'block';}
+  function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika jalur di depan',ifleft:'↰ jika jalur kiri',ifright:'↱ jika jalur kanan'})[type]||type}
+  function addItem(type,n=4){
+    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});
+    renderProgram();updateCount();
+  }
+  function renderProgram(){
+    programEl.querySelectorAll('.program-item,.program-empty').forEach(e=>e.remove());
+    items.forEach((item,index)=>{
+      const row=document.createElement('div');row.className='program-item';row.draggable=true;row.dataset.index=index;
+      const b=document.createElement('div');b.className='block '+(['forward'].includes(item.type)?'move':['left','right'].includes(item.type)?'turn':item.type==='repeat'?'loop':item.type==='if'?'condition':'control');
+      b.append(document.createTextNode(blockLabel(item.type,item.n)));
+      if(item.type==='repeat'){
+        const sel=document.createElement('select');sel.className='mini';sel.setAttribute('aria-label','Jumlah pengulangan');
+        [2,4,6,8,10].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===item.n)o.selected=true;sel.append(o)});
+        sel.addEventListener('change',e=>{item.n=Number(e.target.value);renderProgram()});b.append(sel);
+      }
+      const del=document.createElement('button');del.className='remove';del.textContent='×';del.title='Hapus blok';del.addEventListener('click',e=>{e.stopPropagation();items.splice(index,1);renderProgram();updateCount()});b.append(del);
+      row.append(b);
+      if(['repeat','if','ifleft','ifright'].includes(item.type)){
+        const child=document.createElement('div');child.className='indent';row.append(child);
+        const sub=document.createElement('span');sub.style.cssText='font-size:11px;color:#82919c';sub.textContent=item.type==='repeat'?'blok diulang': 'jika benar';row.append(sub);
+      }
+      row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(index));e.dataTransfer.effectAllowed='move'});
+      row.addEventListener('dragover',e=>{e.preventDefault();row.classList.add('drop-target')});
+      row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
+      row.addEventListener('drop',e=>{e.preventDefault();row.classList.remove('drop-target');const from=Number(e.dataTransfer.getData('text/plain'));if(Number.isInteger(from)&&from!==index){const [moved]=items.splice(from,1);items.splice(index,0,moved);renderProgram()}});
+      programEl.append(row);
+    });
+    updateCount();
+  }
+  // Drag blocks from toolbox into the program; clicking a toolbox block is also supported.
+  document.querySelectorAll('#toolbox .block').forEach(b=>{
+    b.addEventListener('click',e=>{if(e.target.tagName==='SELECT')return;addItem(b.dataset.type,b.querySelector('select')?.value||4)});
+    b.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain','new:'+b.dataset.type+':'+(b.querySelector('select')?.value||4));e.dataTransfer.effectAllowed='copy'});
+  });
+  programEl.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy'});
+  programEl.addEventListener('drop',e=>{
+    e.preventDefault();const val=e.dataTransfer.getData('text/plain');
+    if(val.startsWith('new:')){const [,type,n]=val.split(':');addItem(type,n)}
+    else if(val!==''){const from=Number(val);if(Number.isInteger(from)&&from>=0&&from<items.length){const [moved]=items.splice(from,1);items.push(moved);renderProgram()}}
+  });
+  function pathAhead(offset=0){const d=dirs[(dir+offset+4)%4];return isOpen(robot.r+d.r,robot.c+d.c)}
+  function act(type){
+    if(won)return false;
+    if(type==='left'){dir=(dir+3)%4;log('Belok kiri');return true}
+    if(type==='right'){dir=(dir+1)%4;log('Belok kanan');return true}
+    if(type==='forward'){
+      const d=dirs[dir], nr=robot.r+d.r,nc=robot.c+d.c;
+      if(!isOpen(nr,nc)){setStatus('Ada tembok!');log('⛔ Jalur terhalang.');return false}
+      robot={r:nr,c:nc};drawMaze();log(`Maju ke (${nr+1}, ${nc+1})`);
+      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');log('🎉 Tujuan tercapai! Hebat!');toast('Hebat! Kamu berhasil mencapai tujuan!');return true}
+      return true;
+    }
+    return true;
+  }
+  function flatten(program){
+    const out=[];
+    for(const item of program){
+      if(item.type==='repeat'){for(let i=0;i<item.n;i++)out.push({type:'forward'});}
+      else if(['if','ifleft','ifright'].includes(item.type)){
+        const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
+        if(pathAhead(offset))out.push({type:'forward'});
+      } else out.push(item);
+    }
+    return out;
+  }
+  function compile(){return items.map(item=>({...item}))}
+  async function executeItem(item){
+    if(won)return true;
+    if(item.type==='repeat'){
+      for(let i=0;i<item.n&&!won;i++){
+        await new Promise(resolve=>setTimeout(resolve,260));
+        if(!act('forward'))return false;
+      }
+      return true;
+    }
+    if(['if','ifleft','ifright'].includes(item.type)){
+      const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
+      log(`Periksa jalur ${offset===-1?'kiri':offset===1?'kanan':'depan'}: ${pathAhead(offset)?'terbuka':'terhalang'}`);
+      if(pathAhead(offset)){
+        await new Promise(resolve=>setTimeout(resolve,260));
+        return act('forward');
+      }
+      return true;
+    }
+    await new Promise(resolve=>setTimeout(resolve,260));
+    return act(item.type);
+  }
+  async function runAll(){
+    if(running)return;
+    if(!items.length){toast('Tambahkan blok perintah terlebih dahulu.');return}
+    running=true;resetRobot();consoleEl.textContent='▶ Program dimulai';consoleEl.classList.add('show');
+    const queue=compile();
+    for(const item of queue){
+      if(won)break;
+      const ok=await executeItem(item);
+      if(!ok){setStatus('Program berhenti: jalur terhalang');break}
+    }
+    if(!won&&robot.r!==goal.r||!won&&robot.c!==goal.c)setStatus('Program selesai — coba lagi');
+    running=false;
+  }
+  async function oneStep(){
+    if(running)return;
+    if(!stepQueue.length){resetRobot();stepQueue=compile();consoleEl.textContent='▶ Mode langkah dimulai';consoleEl.classList.add('show')}
+    const next=stepQueue.shift();
+    if(!next){setStatus('Semua langkah selesai');return}
+    running=true;
+    await executeItem(next);
+    running=false;
+    if(!stepQueue.length&&!won)setStatus('Semua langkah selesai');
+  }
+  $('#runProgram').addEventListener('click',runAll);$('#runMaze').addEventListener('click',runAll);
+  $('#stepProgram').addEventListener('click',oneStep);$('#stepMaze').addEventListener('click',oneStep);
+  $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];consoleEl.textContent='Robot direset.'});
+  $('#clearProgram').addEventListener('click',()=>{items=[];stepQueue=[];renderProgram();toast('Program dikosongkan.')});
+  $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();consoleEl.textContent='Level diulang.';setStatus('Siap memulai')});
+  $('#showCode').addEventListener('click',()=>{
+    const lines=items.map((x,i)=>`${i+1}. ${x.type==='repeat'?`ulangi ${x.n} kali { maju }`:x.type==='if'?'jika jalur depan → maju':x.type==='ifleft'?'jika jalur kiri → maju':x.type==='ifright'?'jika jalur kanan → maju':x.type==='forward'?'maju':x.type==='left'?'belok kiri':'belok kanan'}`);
+    consoleEl.textContent='// Representasi program visual\\n'+(lines.join('\\n')||'// Belum ada blok.');consoleEl.classList.add('show');document.querySelector('[data-tab="console"]').classList.add('active');
+  });
+  document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
+    consoleEl.classList.toggle('show',tab.dataset.tab==='console');
+    if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
+  }));
+  function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
+  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Klik blok di toolbox atau seret ke area Program Saya. Susun perintah, lalu tekan Jalankan atau Langkah. Blok maju bergerak satu petak; belok kiri/kanan mengubah arah robot. Blok kondisi memeriksa apakah jalur tersedia saat blok dijalankan. Tombol Reset robot mengembalikan robot ke titik awal tanpa menghapus program.'));
+  $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('open'));
+  $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
+  // Keyboard shortcut: Ctrl+Enter runs program.
+  document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runAll()}});
+  drawMaze();renderProgram();setStatus('Siap memulai');
+})();
+</script>
+</body>
+</html>
