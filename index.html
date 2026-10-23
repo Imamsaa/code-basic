@@ -448,9 +448,10 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       row.draggable=true;
       row.dataset.id=item.id;
       row.addEventListener('dragstart',event=>{
-        if(event.target.closest('button,select')){event.preventDefault();return}
+        if(event.target.closest('button,select')){event.preventDefault();event.stopPropagation();return}
         event.dataTransfer.setData('text/plain','move:'+item.id);
         event.dataTransfer.effectAllowed='move';
+        event.stopPropagation();
       });
       row.addEventListener('dragover',event=>{event.preventDefault();row.classList.add('drop-target')});
       row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
