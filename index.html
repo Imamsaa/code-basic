@@ -733,7 +733,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       const empty=document.createElement('div');
       empty.className='program-empty';
       empty.id='empty';
-      empty.innerHTML='Mulai susun programmu di sini.<br>💡 Seret blok kontrol, lalu letakkan perintah di dalamnya.';
+      empty.innerHTML=currentLevel<2?'Mulai dengan blok maju. Jalur lurus menuju bendera!':currentLevel<6?'Tambahkan blok maju dan belok sesuai jalur.':currentLevel<16?'Coba kelompokkan langkah berulang ke dalam blok ulangi.':'Gunakan blok kontrol dan letakkan beberapa perintah di bagian dalamnya.';
       programEl.append(empty);
     }else{
       renderList(items,programEl,null);
