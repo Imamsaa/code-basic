@@ -23,3 +23,12 @@ Buka `index.html` langsung di browser. Tidak ada dependency eksternal.
 
 ## Catatan
 Versi ini adalah prototipe pembelajaran mandiri. Blok kondisi melakukan pemeriksaan saat dieksekusi; blok pengulangan mengulang perintah maju. Untuk pengalaman Blockly penuh dengan blok bertingkat yang dapat diedit di dalam loop/kondisi, perlu ditambahkan model AST dan editor visual bersarang.
+
+## Visual Coding — Labirin Koding
+
+Halaman belajar coding berbasis blok visual tersedia di: **[`/maze/`](./maze/)**.
+
+Jika GitHub Pages aktif untuk branch `main`, halaman dapat dibuka di:
+`https://imamsaa.github.io/code-basic/maze/`
+
+Halaman ini dibuat dengan HTML, CSS, dan JavaScript murni, tanpa proses build atau dependensi eksternal. File awal di root repository tetap dipertahankan.
