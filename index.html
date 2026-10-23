@@ -316,7 +316,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
   function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika depan terbuka → maju',ifleft:'↰ jika kiri terbuka → belok kiri',ifright:'↱ jika kanan terbuka → belok kanan'})[type]||type}
   function addItem(type,n=4){
-    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});setRunButtonState('idle');
+    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});setRunButtonState('idle');setRunButtonState('idle');
     renderProgram();updateCount();
   }
   function renderProgram(){
@@ -328,7 +328,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       if(item.type==='repeat'){
         const sel=document.createElement('select');sel.className='mini';sel.setAttribute('aria-label','Jumlah pengulangan');
         [2,4,6,8,10].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===item.n)o.selected=true;sel.append(o)});
-        sel.addEventListener('change',e=>{item.n=Number(e.target.value);renderProgram()});b.append(sel);
+        sel.addEventListener('change',e=>{item.n=Number(e.target.value);renderProgram();setRunButtonState('idle')});b.append(sel);
       }
       const del=document.createElement('button');del.className='remove';del.textContent='×';del.title='Hapus blok';del.addEventListener('click',e=>{e.stopPropagation();items.splice(index,1);renderProgram();updateCount();setRunButtonState('idle')});b.append(del);
       row.append(b);
