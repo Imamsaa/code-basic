@@ -373,7 +373,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     ['#runMaze','#runProgram'].forEach(selector=>{const button=$(selector);if(button)button.textContent=labels[state]||labels.idle;});
   }
   function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Kiko di titik awal');}
-  function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
+  function updateCount(){$('#count').textContent=countNodes(items);const empty=$('#empty');if(empty)empty.style.display=items.length?'none':'block';}
   function isContainer(item){return ['repeat','if','ifleft','ifright'].includes(item.type)}
   function makeItem(type,n=4){
     return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[]};
