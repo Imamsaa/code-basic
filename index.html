@@ -275,6 +275,17 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 @media(max-width:850px){.level-progress{min-width:145px;flex-basis:160px!important}.level-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:520px){.level-modal{padding:16px}.level-modal-header h2{font-size:20px}.level-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.level-tile{padding:9px 8px}.level-tile strong{font-size:11px}.stage-title{flex:1}.level-progress{min-width:118px;flex-basis:130px!important;padding:6px 8px!important}}
 
+
+/* Visible difficulty ramp: every five levels introduces a higher challenge tier. */
+.level-difficulty{display:inline-flex;align-self:flex-start;border-radius:7px;padding:3px 7px;font-size:10px!important;font-weight:900!important;letter-spacing:.25px;background:#e8f6ff;color:#26749b!important}
+.level-tile.tier-1 .level-difficulty{background:#e2f8ea;color:#187347!important}
+.level-tile.tier-2 .level-difficulty{background:#e4f5ff;color:#1c7297!important}
+.level-tile.tier-3 .level-difficulty{background:#fff2d4;color:#916317!important}
+.level-tile.tier-4 .level-difficulty{background:#ffe8d8;color:#a65422!important}
+.level-tile.tier-5 .level-difficulty{background:#fbe6f7;color:#9b3e82!important}
+.level-tile.tier-6 .level-difficulty{background:#eee7ff;color:#6844ac!important}
+.level-tile{height:100%}
+
 </style>
 </head>
 <body>
@@ -381,7 +392,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     {id:27,title:"Kontrol Berantai",objective:"Gunakan blok bertingkat agar urutan program lebih mudah dibaca.",skill:"Kontrol lanjutan",moves:"UUUUUUURURRRRRRDDRDDDDDDLLUUUUULLLDLDDD"},
     {id:28,title:"Strategi Kiko",objective:"Lintasan panjang membutuhkan susunan program yang cermat.",skill:"Kontrol lanjutan",moves:"UUUUUUUURRRRDDDLDDDRDRRDRRUUUUUUUULLDDDD"},
     {id:29,title:"Pakar Labirin",objective:"Hadapi rute dengan banyak belokan dan bagian berulang.",skill:"Kontrol lanjutan",moves:"UUUUUUURURRDDDLDDDDDRRUUUURUUUURRRDDDDDDDD"},
-    {id:30,title:"Grand Final",objective:"Selesaikan rute final untuk menamatkan seluruh 30 level Petualangan Kiko.",skill:"Grand final",moves:"UUUUUUUURRRRRDDLLDLDDDDDRRUUUURRDDDDRRUUUU"}
+    {id:30,title:"Grand Final",objective:"Grand Final! Rute terpanjang dengan banyak belokan. Rencanakan perintah secara cermat untuk menamatkan seluruh petualangan.",skill:"Grand final",moves:"UUUUUUUURRRRDDRDRDDLLLLDDDRRURRDRRUUUUUUULLU"}
   ];
   const TOTAL_LEVELS = LEVELS.length;
   const PROGRESS_STORAGE_KEY = 'kidscode-maze-completed-v1';
@@ -476,13 +487,21 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function saveCompletedLevels(){
     try{localStorage.setItem(PROGRESS_STORAGE_KEY,JSON.stringify([...completedLevels].sort((a,b)=>a-b)))}catch(_){}
   }
+  function difficultyForLevel(id){
+    if(id<=5)return 'Pemula';
+    if(id<=10)return 'Mudah';
+    if(id<=15)return 'Menengah';
+    if(id<=20)return 'Menantang';
+    if(id<=25)return 'Lanjutan';
+    return 'Pakar';
+  }
   function refreshLevelProgress(){
     const level=LEVELS[currentLevel-1];
     $('#stageTitle').textContent=`Level ${currentLevel} — ${level.title}`;
     $('#currentLevelLabel').textContent=`LEVEL ${String(currentLevel).padStart(2,'0')} / ${TOTAL_LEVELS}`;
     $('#completedLabel').textContent=`${completedLevels.size} / ${TOTAL_LEVELS} selesai`;
     $('#levelObjectiveTitle').textContent=`Level ${currentLevel} · ${level.title}`;
-    $('#levelObjective').textContent=`${level.objective} · Target belajar: ${level.skill}.`;
+    $('#levelObjective').textContent=`${level.objective} · Target belajar: ${level.skill} · Kesulitan: ${difficultyForLevel(level.id)}.`;
     $('#levelProgressSummary').textContent=completedLevels.size===TOTAL_LEVELS
       ? '🏆 Luar biasa! Semua 30 level sudah selesai.'
       : `${completedLevels.size} dari ${TOTAL_LEVELS} level selesai — ${TOTAL_LEVELS-completedLevels.size} lagi untuk menamatkan permainan.`;
@@ -496,16 +515,18 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       const isDone=completedLevels.has(level.id);
       const btn=document.createElement('button');
       btn.type='button';
-      btn.className='level-tile'+(level.id===currentLevel?' active':'')+(isDone?' completed':'');
+      const tier=Math.ceil(level.id/5);
+      btn.className='level-tile tier-'+tier+(level.id===currentLevel?' active':'')+(isDone?' completed':'');
       btn.setAttribute('aria-label',`Level ${level.id}: ${level.title}${isDone?', selesai':''}`);
       const top=document.createElement('span');top.className='level-tile-top';
       const number=document.createElement('span');number.className='level-number';number.textContent=`LEVEL ${String(level.id).padStart(2,'0')}`;
       const state=document.createElement('span');state.className='level-state'+(isDone?'':' pending');state.textContent=isDone?'✓':'○';
       top.append(number,state);
       const title=document.createElement('strong');title.textContent=level.title;
+      const difficulty=document.createElement('small');difficulty.className='level-difficulty';difficulty.textContent=difficultyForLevel(level.id);
       const details=document.createElement('small');details.textContent=`${level.moves.length} langkah · ${level.skill}`;
       const status=document.createElement('small');status.textContent=isDone?'Sudah selesai':(level.id===currentLevel?'Sedang dimainkan':'Belum selesai');
-      btn.append(top,title,details,status);
+      btn.append(top,title,difficulty,details,status);
       btn.addEventListener('click',()=>{loadLevel(level.id);$('#levelModal').classList.remove('open')});
       grid.append(btn);
     });
