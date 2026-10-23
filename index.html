@@ -88,12 +88,69 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 @media(max-width:850px){.topbar{height:auto;min-height:60px;padding:10px 12px;flex-wrap:wrap}.app{height:auto;grid-template-columns:1fr;padding:10px}.left{min-height:460px}.right{min-height:620px}.workarea{grid-template-columns:145px minmax(0,1fr)}}
 @media(max-width:480px){.stage-title{font-size:12px;white-space:normal}.top-actions button{padding:7px 9px}.app{padding:8px;gap:10px}.maze-wrap{min-height:220px}.workarea{grid-template-columns:115px minmax(0,1fr)}.toolbox{padding:7px}.program-item .block{min-width:0}.program-item{flex-wrap:wrap}.program-item .indent{display:none}.program-item .block{font-size:11px}.tabs{align-items:stretch}.small-btn{font-size:11px}}
 
+
+/* Playful mascot and reliable vector icons */
+.rabbit-badge{overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#e3fbff,#fff0f5)}
+.rabbit-badge .rabbit-svg{width:52px;height:52px;transform:none!important}
+.rabbit-svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 1px 1px #26445b20);transform-origin:50% 55%}
+.cell{border-right:1px solid #40af4b;border-bottom:1px solid #40af4b}
+.path{position:relative}
+.path-arrow{position:absolute;left:50%;top:50%;width:24%;height:24%;display:flex;align-items:center;justify-content:center;opacity:.65;pointer-events:none}
+.path-arrow svg{width:100%;height:100%}
+.obstacle{display:flex;align-items:center;justify-content:center}
+.obstacle-icon{width:68%;height:68%;display:block;filter:drop-shadow(0 2px 0 #286e3b2b)}
+.rock-icon{filter:drop-shadow(0 2px 0 #546a7e30)}
+.goal-dot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.flag-svg{width:72%;height:82%;filter:drop-shadow(0 2px 1px #355b4033)}
+.player{display:flex;align-items:center;justify-content:center;width:100%;height:100%;z-index:4;position:relative;filter:drop-shadow(0 3px 1px #235b402b)}
+.player .rabbit-svg{width:104%;height:104%;max-width:none;max-height:none;animation:rabbit-hop 1.8s ease-in-out infinite}
+@keyframes rabbit-hop{0%,100%{translate:0 0}50%{translate:0 -2px}}
+.topbar{background:linear-gradient(110deg,#08a6c4 0%,#1688d9 55%,#7463d8 100%)}
+.stage-title{color:#fff;text-shadow:0 1px 1px #00475e25}
+.app{background:transparent}
+.maze-card{position:relative}
+.maze-card:before{content:"KIKO'S MAZE";position:absolute;top:17px;left:20px;z-index:2;background:#fff9;color:#397b50;font-weight:900;font-size:10px;letter-spacing:1.2px;border-radius:20px;padding:5px 9px;pointer-events:none}
+.maze-wrap{padding-top:24px}
+.maze{background:#64cf67;border:5px solid #fff;box-shadow:0 5px 0 #bee3c8,0 10px 22px #1e744622;gap:1px}
+.path{background:linear-gradient(145deg,#ffe9a9,#ffd66f 55%,#f5c65a);box-shadow:inset 0 0 0 2px #fff0bb,inset 0 -3px 0 #dfaa42;border-radius:5px}
+.grass{background-color:#6bd875;background-image:radial-gradient(#36b653 1px,transparent 1px),linear-gradient(145deg,#81e881,#62d66c);background-size:10px 10px,100% 100%}
+.goal{background:linear-gradient(145deg,#c9f7b6,#8eea8b);box-shadow:inset 0 0 0 2px #5ec76a;border-radius:5px}
+.controls{align-items:center;flex-wrap:wrap}
+.maze-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 4px 0;color:#54758a;font-size:11px;font-weight:700}
+.maze-legend span{display:flex;align-items:center;gap:5px}
+.legend-swatch{display:inline-block;width:12px;height:12px;border-radius:4px;border:1px solid #ffffff;box-shadow:0 1px 2px #0002}
+.legend-path{background:#f8cf68}.legend-grass{background:#70d979}
+.legend-flag{width:14px;height:15px;display:inline-flex}
+.legend-flag .flag-svg{width:14px;height:15px}
+.hint{background:linear-gradient(120deg,#fffdf1,#fff8d8);box-shadow:0 4px 14px #b99a3510}
+.instruction{position:relative;overflow:hidden}
+.instruction:after{content:"✦";position:absolute;right:18px;top:10px;font-size:21px;color:#ffc75f;opacity:.9}
+.instruction p{padding-right:18px}
+.toolbox{background:linear-gradient(180deg,#f3faff,#eef7ff)}
+.toolbox h3{display:flex;align-items:center;gap:7px}
+.toolbox h3:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#ffb63e;box-shadow:0 0 0 4px #ffb63e28}
+.block{font-weight:850;letter-spacing:.05px;line-height:1.2}
+.block:before{z-index:0}
+.block:after{pointer-events:none}
+.block .mini{position:relative;z-index:1}
+.program-item .block{min-height:40px;display:flex;align-items:center;gap:5px;line-height:1.35}
+.program-item .remove{flex-shrink:0;position:relative;z-index:2}
+.tab-tools .small-btn:first-child{background:#627eae}
+.tab-tools .small-btn:last-child{background:#ed7b8e}
+.run-btn{background:linear-gradient(100deg,#28b768,#19a875);box-shadow:0 4px 0 #16864a}
+.primary{background:linear-gradient(100deg,#ffb231,#ff8d31);box-shadow:0 4px 0 #db8511}
+.secondary{color:#317088}
+.status{border-radius:9px;padding:7px 10px;background:#edf9ff;max-width:190px;text-align:center}
+.program-empty{background:radial-gradient(#d8ecf8 1px,transparent 1px),#f8fcff;background-size:12px 12px}
+.toast{background:linear-gradient(100deg,#0d9aab,#5b70d6);border:2px solid #ffffff50}
+@media(max-width:850px){.maze-card:before{top:14px;left:17px}.maze-wrap{padding-top:26px}}
+
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="brand"><div class="brand-mark"><span>C</span><span>D</span><span>O</span><span>E</span></div><span class="brand-name">KIDSCODE STUDIO</span></div>
-  <div class="stage-title">Misi Labirin: Antar Robot ke Bendera</div>
+  <div class="stage-title">Misi Labirin: Kelinci ke Bendera</div>
   <div class="progress" aria-label="Progres level"><i class="done"></i><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="top-actions"><button id="helpTop">? Bantuan</button><button class="signin" id="resetTop">Ulangi level</button></div>
 </header>
@@ -102,11 +159,12 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     <div class="card maze-card">
       <div class="maze-wrap"><div class="maze" id="maze" role="img" aria-label="Labirin permainan"></div></div>
       <div class="controls"><button class="primary" id="runMaze">▶ Jalankan</button><button class="secondary" id="stepMaze">Langkah ▸</button><span class="status" id="mazeStatus">Siap memulai</span></div>
+      <div class="maze-legend" aria-label="Legenda labirin"><span><i class="legend-swatch legend-path"></i>Jalur aman</span><span><i class="legend-swatch legend-grass"></i>Semak</span><span><i class="legend-flag">'+FLAG_SVG+'</i>Tujuan</span></div>
     </div>
-    <div class="card hint"><strong>💡 Butuh bantuan?</strong><p>Susun blok perintah di area program. Jalur berwarna emas adalah lintasan aman. Rumput dan batu adalah area terhalang. Rangkai blok maju dan belok agar robot mencapai bendera.</p></div>
+    <div class="card hint"><strong>💡 Butuh bantuan?</strong><p>Susun blok perintah di area program. Jalur berwarna emas adalah lintasan aman. Rumput dan batu adalah area terhalang. Rangkai blok maju dan belok agar Kiko mencapai bendera.</p></div>
   </section>
   <section class="right">
-    <div class="card instruction"><div class="mascot">🤖</div><p><b>Petunjuk level</b><br>Ikuti jalan berwarna emas, hindari area rumput, lalu antarkan robot sampai bendera. Susun blok perintah seperti kepingan puzzle!</p></div>
+    <div class="card instruction"><div class="mascot rabbit-badge" aria-label="Maskot kelinci" role="img"></div><p><b>Petunjuk level</b><br>Ikuti jalur emas, hindari semak dan batu, lalu bantu Kiko mencapai bendera. Susun blok perintah seperti kepingan puzzle!</p></div>
     <div class="card workspace">
       <div class="tabs"><button class="tab active" data-tab="blocks">Blok</button><button class="tab" data-tab="workspace">Workspace: <span id="count">0</span> blok</button><button class="tab" data-tab="console">Log program</button><div class="tab-tools"><button class="small-btn" id="showCode">‹› Lihat Kode</button><button class="small-btn" id="clearProgram">Hapus Semua</button></div></div>
       <div class="workarea">
@@ -146,6 +204,32 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     '3,7','2,7','1,7','0,7','0,8'
   ]);
   const obstacles = new Set(['0,2','0,5','1,1','1,8','2,2','2,5','3,1','3,5','4,0','5,0','5,4','5,8','6,4','6,7','7,2','7,5','8,3','8,6']);
+  const RABBIT_SVG = `<svg class="rabbit-svg" viewBox="0 0 88 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <ellipse cx="44" cy="88" rx="23" ry="5" fill="#15445b" opacity=".15"/>
+    <path d="M23 38C12 24 15 4 25 4c11 0 16 20 17 34Z" fill="#fffaf0" stroke="#334155" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M24 29C20 18 22 11 26 10c5 0 9 13 10 23Z" fill="#ff9fae"/>
+    <path d="M48 37C47 20 51 2 61 4c12 2 13 25 3 39Z" fill="#fffaf0" stroke="#334155" stroke-width="2.8" stroke-linejoin="round"/>
+    <path d="M54 30C54 17 58 10 62 10c5 2 6 16 0 25Z" fill="#ff9fae"/>
+    <path d="M17 57C10 49 12 39 21 37l12 8M66 45l8-7c6 5 6 14 0 21" fill="#0faab2" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M26 60c-2 11 1 23 9 26h20c9-5 11-16 7-27Z" fill="#fffaf0" stroke="#334155" stroke-width="2.8" stroke-linejoin="round"/>
+    <ellipse cx="37" cy="83" rx="10" ry="6" fill="#fffaf0" stroke="#334155" stroke-width="2.2"/>
+    <ellipse cx="56" cy="83" rx="10" ry="6" fill="#fffaf0" stroke="#334155" stroke-width="2.2"/>
+    <path d="M20 51c-1-17 10-29 25-29s27 12 26 29c-1 15-12 23-26 23S21 66 20 51Z" fill="#fffaf0" stroke="#334155" stroke-width="2.8"/>
+    <path d="M30 45c-1-5 2-9 6-9s7 4 6 9c-1 4-3 6-6 6s-5-2-6-6Z" fill="#24334d"/>
+    <path d="M48 45c-1-5 2-9 6-9s7 4 6 9c-1 4-3 6-6 6s-5-2-6-6Z" fill="#24334d"/>
+    <circle cx="39" cy="41" r="2" fill="#fff"/><circle cx="57" cy="41" r="2" fill="#fff"/>
+    <ellipse cx="28" cy="55" rx="5" ry="3" fill="#ff9fae" opacity=".8"/><ellipse cx="64" cy="55" rx="5" ry="3" fill="#ff9fae" opacity=".8"/>
+    <path d="M43 50l3-2 3 2-3 3Z" fill="#f27c91" stroke="#9b4b67" stroke-width=".7"/>
+    <path d="M46 53c-1 4-4 5-6 3m6-3c1 4 4 5 6 3" fill="none" stroke="#9b4b67" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M27 67c4 2 8 2 11 0M54 67c3 2 7 2 10 0" fill="none" stroke="#e8d8c9" stroke-width="2" stroke-linecap="round"/>
+    <path d="M25 64c-1 6 3 12 9 13l5-8-4-6Z" fill="#ffad36" stroke="#334155" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M25 65l10 7" fill="none" stroke="#ffdc68" stroke-width="2"/>
+    <path d="M17 45c-4 5-2 12 3 14l7-8-4-8Z" fill="#17b7b1" stroke="#334155" stroke-width="2"/>
+    <path d="M68 49c6 1 8 7 5 12l-8-4Z" fill="#17b7b1" stroke="#334155" stroke-width="2"/>
+  </svg>`;
+  const FLAG_SVG = `<svg class="flag-svg" viewBox="0 0 36 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 36V4" stroke="#536779" stroke-width="3" stroke-linecap="round"/><path d="M9 5h21l-5 7 5 7H9Z" fill="#ff5d78" stroke="#7f3448" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 5h10v7H9Z" fill="#fff"/><path d="M19 12h11l-5 7H19Z" fill="#ffd454"/><circle cx="7" cy="3.5" r="2.5" fill="#ffd454"/></svg>`;
+  const LEAF_SVG = `<svg class="obstacle-icon leaf-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 34V17" stroke="#416c35" stroke-width="3" stroke-linecap="round"/><path d="M19 21C5 20 5 9 6 6c12 0 17 5 13 15Z" fill="#43b95a" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M20 17C19 7 28 3 35 4c1 11-4 17-15 13Z" fill="#7bd957" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M10 10l8 8m14-10-10 9" stroke="#d7ff94" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+  const ROCK_SVG = `<svg class="obstacle-icon rock-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 29 9 14 18 7 29 11 36 24 31 32 12 34Z" fill="#9caec1" stroke="#536a80" stroke-width="2.4" stroke-linejoin="round"/><path d="m10 16 8-6 5 8-9 4Zm15 3 5-3 3 8-8 4Z" fill="#dce8f4"/><path d="m12 29 6-5m8 9 3-5" stroke="#71869a" stroke-width="2" stroke-linecap="round"/></svg>`;
   const start = {r:8,c:0}, goal = {r:0,c:8};
   let robot = {...start}, dir = 0, items = [], running = false, stepQueue = [], won = false;
   const dirs = [{r:-1,c:0,name:'utara',emoji:'⬆️'},{r:0,c:1,name:'timur',emoji:'➡️'},{r:1,c:0,name:'selatan',emoji:'⬇️'},{r:0,c:-1,name:'barat',emoji:'⬅️'}];
@@ -158,20 +242,32 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       const cell=document.createElement('div');
       cell.className='cell '+(onPath?'path':'grass');
       cell.dataset.pos=key;
-      cell.setAttribute('aria-label',onPath?'Jalur lintasan':'Rumput terhalang');
+      cell.setAttribute('aria-label',onPath?'Jalur lintasan':'Area rumput');
       if(obstacles.has(key)&&!onPath){
         cell.classList.add('obstacle');
-        cell.textContent=(r+c)%2?'🪨':'🌿';
+        cell.innerHTML=(r+c)%2?LEAF_SVG:ROCK_SVG;
+      }
+      if(onPath){
+        const index=Array.from(route).indexOf(key);
+        const keys=Array.from(route);
+        if(index>=0 && index<keys.length-1 && index%3===1){
+          const [r1,c1]=key.split(',').map(Number);
+          const [r2,c2]=keys[index+1].split(',').map(Number);
+          const angle=r2<r1?0:c2>c1?90:r2>r1?180:270;
+          const arrow=document.createElement('span');
+          arrow.className='path-arrow';
+          arrow.style.transform=`translate(-50%,-50%) rotate(${angle}deg)`;
+          arrow.innerHTML='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 17V3M4.5 8.5 10 3l5.5 5.5" fill="none" stroke="#96631b" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          cell.append(arrow);
+        }
       }
       if(r===goal.r&&c===goal.c){
         cell.classList.add('goal');
-        cell.innerHTML='<span class="goal-dot">🏁</span>';
+        cell.innerHTML='<span class="goal-dot">'+FLAG_SVG+'</span>';
       }
-      if(r===start.r&&c===start.c&&robot.r===start.r&&robot.c===start.c){
-        cell.classList.add('start-cell');
-      }
+      if(r===start.r&&c===start.c&&robot.r===start.r&&robot.c===start.c) cell.classList.add('start-cell');
       if(r===robot.r&&c===robot.c){
-        const p=document.createElement('span');p.className='player';p.textContent='🤖';
+        const p=document.createElement('span');p.className='player';p.innerHTML=RABBIT_SVG;
         p.style.transform=`rotate(${dir*90}deg)`;
         cell.append(p);
       }
@@ -181,7 +277,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
   function log(msg){consoleEl.textContent += '\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
   function setStatus(msg){$('#mazeStatus').textContent=msg}
-  function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Robot di titik awal');}
+  function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Kiko di titik awal');}
   function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
   function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika depan terbuka → maju',ifleft:'↰ jika kiri terbuka → belok kiri',ifright:'↱ jika kanan terbuka → belok kanan'})[type]||type}
   function addItem(type,n=4){
@@ -227,13 +323,13 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function pathAhead(offset=0){const d=dirs[(dir+offset+4)%4];return isOpen(robot.r+d.r,robot.c+d.c)}
   function act(type){
     if(won)return false;
-    if(type==='left'){dir=(dir+3)%4;log('Belok kiri');return true}
-    if(type==='right'){dir=(dir+1)%4;log('Belok kanan');return true}
+    if(type==='left'){dir=(dir+3)%4;drawMaze();log('Kiko belok kiri');return true}
+    if(type==='right'){dir=(dir+1)%4;drawMaze();log('Kiko belok kanan');return true}
     if(type==='forward'){
       const d=dirs[dir], nr=robot.r+d.r,nc=robot.c+d.c;
       if(!isOpen(nr,nc)){setStatus('Ada tembok!');log('⛔ Jalur terhalang.');return false}
       robot={r:nr,c:nc};drawMaze();log(`Maju ke (${nr+1}, ${nc+1})`);
-      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');log('🎉 Tujuan tercapai! Hebat!');toast('Hebat! Kamu berhasil mencapai tujuan!');return true}
+      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');log('🎉 Kiko sampai! Hebat!');toast('Hebat! Kiko berhasil sampai ke bendera!');return true}
       return true;
     }
     return true;
@@ -297,7 +393,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   }
   $('#runProgram').addEventListener('click',runAll);$('#runMaze').addEventListener('click',runAll);
   $('#stepProgram').addEventListener('click',oneStep);$('#stepMaze').addEventListener('click',oneStep);
-  $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];consoleEl.textContent='Robot direset.'});
+  $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];consoleEl.textContent='Kiko kembali ke titik awal.'});
   $('#clearProgram').addEventListener('click',()=>{items=[];stepQueue=[];renderProgram();toast('Program dikosongkan.')});
   $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();consoleEl.textContent='Level diulang.';setStatus('Siap memulai')});
   $('#showCode').addEventListener('click',()=>{
@@ -310,12 +406,12 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
   }));
   function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
-  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Klik blok di toolbox atau seret ke area Program Saya. Susun perintah, lalu tekan Jalankan atau Langkah. Blok maju bergerak satu petak; belok kiri/kanan mengubah arah robot. Blok kondisi memeriksa jalur di depan/kiri/kanan; jika terbuka, ia melakukan tindakan yang tertulis pada blok. Tombol Reset robot mengembalikan robot ke titik awal tanpa menghapus program.'));
+  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Klik blok di toolbox atau seret ke area Program Saya. Susun perintah, lalu tekan Jalankan atau Langkah. Blok maju bergerak satu petak; belok kiri/kanan mengubah arah robot. Blok kondisi memeriksa jalur di depan/kiri/kanan; jika terbuka, ia melakukan tindakan yang tertulis pada blok. Tombol Reset robot mengembalikan Kiko ke titik awal tanpa menghapus program.'));
   $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('open'));
   $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
   // Keyboard shortcut: Ctrl+Enter runs program.
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runAll()}});
-  drawMaze();renderProgram();setStatus('Siap memulai');
+  $('.rabbit-badge').innerHTML=RABBIT_SVG;drawMaze();renderProgram();setStatus('Kiko siap bertualang!');
 })();
 </script>
 </body>
