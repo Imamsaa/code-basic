@@ -179,7 +179,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     }
   }
   function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-  function log(msg){consoleEl.textContent += '\\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
+  function log(msg){consoleEl.textContent += '\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
   function setStatus(msg){$('#mazeStatus').textContent=msg}
   function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Robot di titik awal');}
   function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
@@ -302,7 +302,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();consoleEl.textContent='Level diulang.';setStatus('Siap memulai')});
   $('#showCode').addEventListener('click',()=>{
     const lines=items.map((x,i)=>`${i+1}. ${x.type==='repeat'?`ulangi ${x.n} kali { maju }`:x.type==='if'?'jika depan terbuka → maju':x.type==='ifleft'?'jika kiri terbuka → belok kiri':x.type==='ifright'?'jika kanan terbuka → belok kanan':x.type==='forward'?'maju':x.type==='left'?'belok kiri':'belok kanan'}`);
-    consoleEl.textContent='// Representasi program visual\\n'+(lines.join('\\n')||'// Belum ada blok.');consoleEl.classList.add('show');document.querySelector('[data-tab="console"]').classList.add('active');
+    consoleEl.textContent='// Representasi program visual\n'+(lines.join('\n')||'// Belum ada blok.');consoleEl.classList.add('show');document.querySelector('[data-tab="console"]').classList.add('active');
   });
   document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
