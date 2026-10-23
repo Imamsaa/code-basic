@@ -244,13 +244,46 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .container-body>.container-placeholder{flex:0 0 auto}
 .program-item.drop-target{border-top:0}
 
+
+/* 30-level adventure selector */
+.level-progress{height:auto!important;max-width:220px!important;flex:0 1 210px!important;padding:7px 11px!important;gap:8px!important;background:#ffffff23!important;border:1px solid #ffffff55!important;color:#fff!important;text-align:left!important;display:flex;align-items:center;justify-content:space-between;cursor:pointer;min-width:150px}
+.level-progress-copy{display:flex;flex-direction:column;gap:2px;line-height:1.1}
+.level-progress-copy strong{font-size:11px;letter-spacing:.6px}
+.level-progress-copy small{font-size:10px;opacity:.9;font-weight:750}
+.level-caret{font-size:18px;line-height:1}
+#toolbox .block[hidden]{display:none!important}
+.level-modal-backdrop{z-index:30}
+.level-modal{width:min(920px,100%);max-width:920px;max-height:min(90vh,820px);overflow:auto;padding:22px;background:linear-gradient(145deg,#fff,#f3faff);border:1px solid #d8ebf7}
+.level-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.level-modal-header h2{font-size:24px;color:#22536f;margin:0 0 5px}
+.level-modal-header p{margin:0;color:#668095;font-size:13px;line-height:1.4}
+.level-close{float:none!important;flex:0 0 38px;width:38px;height:38px;padding:0!important;background:#e7f3fb!important;color:#42647b!important;border-radius:12px!important;font-size:26px;line-height:1}
+.level-progress-summary{margin:16px 0 12px;padding:11px 14px;border-radius:12px;background:#e8f8f0;color:#147347;font-size:13px;font-weight:850}
+.level-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.level-tile{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:12px 11px;border:2px solid #dceaf3;border-radius:14px;background:#fff;color:#26465b;text-align:left;box-shadow:0 3px 0 #e1edf4;transition:transform .12s,border-color .12s,box-shadow .12s}
+.level-tile:hover{transform:translateY(-2px);border-color:#8bd6e6;box-shadow:0 5px 0 #d4edf3}
+.level-tile:focus-visible{outline:3px solid #ffbd43;outline-offset:2px}
+.level-tile.active{border-color:#0aa8c4;background:#edfbff;box-shadow:0 3px 0 #a1dfeb}
+.level-tile.completed{border-color:#6bc99a;background:#f0fff6}
+.level-tile-top{display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%}
+.level-number{font-size:10px;font-weight:900;letter-spacing:.45px;color:#68869a}
+.level-state{font-size:10px;font-weight:900;color:#178552}
+.level-state.pending{color:#8295a4}
+.level-tile strong{font-size:12px;line-height:1.25;overflow-wrap:anywhere}
+.level-tile small{font-size:10px;color:#6f8799;line-height:1.3}
+.level-modal-note{margin-top:14px;padding:12px 13px;background:#fff8e6;border-radius:12px;color:#846525;font-size:12px;line-height:1.5}
+@media(max-width:850px){.level-progress{min-width:145px;flex-basis:160px!important}.level-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:520px){.level-modal{padding:16px}.level-modal-header h2{font-size:20px}.level-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.level-tile{padding:9px 8px}.level-tile strong{font-size:11px}.stage-title{flex:1}.level-progress{min-width:118px;flex-basis:130px!important;padding:6px 8px!important}}
+
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="brand"><div class="brand-mark"><span>C</span><span>D</span><span>O</span><span>E</span></div><span class="brand-name">KIDSCODE STUDIO</span></div>
-  <div class="stage-title">Misi Labirin: Kelinci ke Bendera</div>
-  <div class="progress" aria-label="Progres level"><i class="done"></i><i class="done"></i><i class="done"></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="stage-title" id="stageTitle">Level 1 — Langkah Pertama</div>
+  <button class="progress level-progress" id="openLevels" type="button" aria-label="Pilih level dan lihat progres">
+    <span class="level-progress-copy"><strong id="currentLevelLabel">LEVEL 01 / 30</strong><small id="completedLabel">0 / 30 selesai</small></span><span class="level-caret">⌄</span>
+  </button>
   <div class="top-actions"><button id="helpTop">? Bantuan</button><button class="signin" id="resetTop">Ulangi level</button></div>
 </header>
 <main class="app">
@@ -263,7 +296,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     <div class="card hint"><strong>💡 Butuh bantuan?</strong><p>Susun blok perintah di area program. Jalur berwarna emas adalah lintasan aman. Rumput dan batu adalah area terhalang. Rangkai blok maju dan belok agar Kiko mencapai bendera.</p></div>
   </section>
   <section class="right">
-    <div class="card instruction"><div class="mascot rabbit-badge" aria-label="Maskot kelinci" role="img"></div><p><b>Petunjuk level</b><br>Ikuti jalur emas, hindari semak dan batu, lalu bantu Kiko mencapai bendera. Susun blok perintah seperti kepingan puzzle!</p></div>
+    <div class="card instruction"><div class="mascot rabbit-badge" aria-label="Maskot kelinci" role="img"></div><p><b id="levelObjectiveTitle">Level 1 · Langkah Pertama</b><br><span id="levelObjective">Maju lurus sampai bendera. Level ini hanya memakai blok maju.</span></p></div>
     <div class="card workspace">
       <div class="tabs"><button class="tab active" data-tab="blocks">Blok</button><button class="tab" data-tab="workspace">Workspace: <span id="count">0</span> blok</button><div class="tab-tools"><button class="small-btn" id="clearProgram">Hapus Semua</button></div></div>
       <div class="workarea">
@@ -303,18 +336,67 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 </main>
 <div class="toast" id="toast" role="status"></div>
 <div class="modal-backdrop" id="modal"><div class="modal"><h2 id="modalTitle">Bantuan</h2><p id="modalText"></p><button id="closeModal">Mengerti</button></div></div>
+<div class="modal-backdrop level-modal-backdrop" id="levelModal">
+  <section class="modal level-modal" role="dialog" aria-modal="true" aria-labelledby="levelModalTitle">
+    <div class="level-modal-header">
+      <div><h2 id="levelModalTitle">Pilih Petualangan</h2><p>Semua level terbuka. Selesaikan semuanya untuk menamatkan permainan.</p></div>
+      <button class="level-close" id="closeLevels" type="button" aria-label="Tutup pemilih level">×</button>
+    </div>
+    <div class="level-progress-summary" id="levelProgressSummary">0 dari 30 level selesai</div>
+    <div class="level-grid" id="levelGrid"></div>
+    <div class="level-modal-note">Kamu bebas melompat ke level mana saja. Progres tersimpan di browser ini; tamat penuh membutuhkan 30/30 level selesai.</div>
+  </section>
+</div>
 <script>
 (() => {
   const $ = s => document.querySelector(s);
   const mazeEl = $('#maze'), programEl = $('#program');
-  // 9x9 maze: 0 = open, 1 = wall. The path winds from bottom-left to top-right.
-  // Jalur emas adalah lintasan yang bisa dilewati; rumput di luar jalur adalah semak/area terhalang.
-  const route = new Set([
-    '8,0','7,0','6,0','6,1','6,2','5,2','4,2','4,3','4,4',
-    '3,4','2,4','1,4','1,5','1,6','2,6','3,6','4,6','4,7',
-    '3,7','2,7','1,7','0,7','0,8'
-  ]);
-  const obstacles = new Set(['0,2','0,5','1,1','1,8','2,2','2,5','3,1','3,5','4,0','5,0','5,4','5,8','6,4','6,7','7,2','7,5','8,3','8,6']);
+  const LEVELS = [
+    {id:1,title:"Langkah Pertama",objective:"Maju lurus sampai bendera. Level ini hanya memakai blok maju.",skill:"Maju",moves:"UUUUUUUU"},
+    {id:2,title:"Belokan Pertama",objective:"Lurus, lalu belok kanan untuk mencapai bendera.",skill:"Belok",moves:"UUUUUUUUR"},
+    {id:3,title:"Jalan Berbentuk L",objective:"Gabungkan beberapa langkah maju dan dua belokan.",skill:"Belok",moves:"UUUUUUURRD"},
+    {id:4,title:"Sudut Tajam",objective:"Rencanakan tiga bagian lintasan sebelum menjalankan program.",skill:"Belok berantai",moves:"UUUURRRDDRRR"},
+    {id:5,title:"Jejak Kelinci",objective:"Latih urutan beberapa belokan tanpa kehilangan arah.",skill:"Belok berantai",moves:"UUURRRDDRRUUR"},
+    {id:6,title:"Jalur Panjang",objective:"Coba gunakan ulangi untuk menghemat blok maju.",skill:"Pengulangan",moves:"UUUUUUUURRDDDD"},
+    {id:7,title:"Belok dan Lurus",objective:"Campurkan pengulangan dengan perintah belok.",skill:"Pengulangan",moves:"UUUUUUUURRDDRRR"},
+    {id:8,title:"Sudut Paling Jauh",objective:"Lintasan menyentuh sisi atas sebelum berbelok lagi.",skill:"Pengulangan",moves:"UUUUURUUURRRRRRR"},
+    {id:9,title:"Misi Berliku",objective:"Susun beberapa rangkaian maju dan belok dengan rapi.",skill:"Pola gerak",moves:"UUUUUUURURRRDDDDDD"},
+    {id:10,title:"Jembatan Panjang",objective:"Lintasan panjang membuat blok ulangi semakin berguna.",skill:"Pola gerak",moves:"UUUUUURRUURRDDDDDDD"},
+    {id:11,title:"Tikungan Ganda",objective:"Atur blok dalam urutan yang benar untuk menghadapi tikungan beruntun.",skill:"Strategi lintasan",moves:"UUUUUUURRRDDLDDDRRRR"},
+    {id:12,title:"Sisi Labirin",objective:"Perhatikan arah Kiko setiap kali lintasan berbalik.",skill:"Strategi lintasan",moves:"UUUUUURRUURRRRRDDDLLL"},
+    {id:13,title:"Jalur Berputar",objective:"Selesaikan rute panjang dengan beberapa perubahan arah.",skill:"Strategi lintasan",moves:"UUUUUURRRDDRRRURRDDDDD"},
+    {id:14,title:"Tantangan 24 Langkah",objective:"Rencanakan urutan blok sebelum menekan Jalankan.",skill:"Strategi lintasan",moves:"UUUUUUUURRRRRDDRDDLLDDDD"},
+    {id:15,title:"Jejak Rahasia",objective:"Gunakan ulangi pada bagian yang memiliki pola berulang.",skill:"Pola berulang",moves:"UUUUUUUURRDDDRDRRRRRUUULL"},
+    {id:16,title:"Pintu Kondisi",objective:"Kondisi bisa memeriksa jalur sebelum menjalankan perintah di dalamnya.",skill:"Kondisi",moves:"UUURRDRRRDDRRRUUUUULLLLLLL"},
+    {id:17,title:"Tiga Zona",objective:"Gabungkan langkah panjang dan keputusan arah yang cermat.",skill:"Kondisi",moves:"UUUUUURUURRRRRRDRDDDDDLLUUU"},
+    {id:18,title:"Cek Sebelum Jalan",objective:"Letakkan perintah di dalam blok jika agar dijalankan saat kondisi benar.",skill:"Kondisi",moves:"UUUUURRURRRRRDRDDDDDLLLLUUUU"},
+    {id:19,title:"Tantangan Persimpangan",objective:"Gunakan kondisi dan belokan untuk menuntun Kiko di rute yang panjang.",skill:"Kondisi",moves:"UUUUUUURRDRDRRUUURRRDDDDDLLLLL"},
+    {id:20,title:"Jalur Cerdas",objective:"Pilih kombinasi blok yang membuat program tetap mudah dibaca.",skill:"Kondisi",moves:"UURRRDRDRRRRUUUULLLLLLLLUUUURRR"},
+    {id:21,title:"Logika Bertingkat",objective:"Blok kontrol dapat berisi blok perintah maupun blok kontrol lain.",skill:"Blok bertingkat",moves:"UUUUUUUURRRDRRDDDDRRDDLLLDLLUUUU"},
+    {id:22,title:"Kondisi Bersarang",objective:"Susun beberapa keputusan dengan struktur yang jelas.",skill:"Blok bertingkat",moves:"UUUUUUUURRRDRRRDDDRDDDDLLLLULUUUU"},
+    {id:23,title:"Labirin Panjang",objective:"Buat program yang teratur untuk lintasan dengan banyak belokan.",skill:"Blok bertingkat",moves:"UUUUUUURURRRRRDDDDDLLULLDDDRRDRRRR"},
+    {id:24,title:"Rencana Efisien",objective:"Gunakan pola yang berulang untuk mengurangi blok yang diperlukan.",skill:"Efisiensi",moves:"UURRDDRRUURRDDRRUUUUUUUULLDDDDLLLLLL"},
+    {id:25,title:"Kiko Sang Penjelajah",objective:"Pilih struktur blok yang tepat untuk bagian lintasan yang berbeda.",skill:"Efisiensi",moves:"UUUUUUUURRRDDLDDDDDRRRUULUURRRRDDDLDD"},
+    {id:26,title:"Ahli Pengulangan",objective:"Gabungkan ulangi, maju, dan belok untuk mengatur gerakan yang panjang.",skill:"Efisiensi",moves:"UUURRRUULLLUURURRRRDDDDDDLDDRRRRUUUUUU"},
+    {id:27,title:"Kontrol Berantai",objective:"Gunakan blok bertingkat agar urutan program lebih mudah dibaca.",skill:"Kontrol lanjutan",moves:"UUUUUUUURRDDRRUURRRRDDDLLLDLLLDDRRRRRDD"},
+    {id:28,title:"Strategi Kiko",objective:"Lintasan panjang membutuhkan susunan program yang cermat.",skill:"Kontrol lanjutan",moves:"UUUURUUURRDDDDLDDDRRRRRRUUUUUUULULLDDDDD"},
+    {id:29,title:"Pakar Labirin",objective:"Hadapi rute dengan banyak belokan dan bagian berulang.",skill:"Kontrol lanjutan",moves:"UUUUUUURURRDDLDDDDDRRRRUUUULUUURRRDDDDDDDD"},
+    {id:30,title:"Grand Final",objective:"Selesaikan rute final untuk menamatkan seluruh 30 level Petualangan Kiko.",skill:"Grand final",moves:"UUUUUUUURRRRRRDDDLLULLDDRDDRDDRRRRUUUUUUUU"}
+  ];
+  const TOTAL_LEVELS = LEVELS.length;
+  const PROGRESS_STORAGE_KEY = 'kidscode-maze-completed-v1';
+  const MOVE_DELTAS = {U:{r:-1,c:0},R:{r:0,c:1},D:{r:1,c:0},L:{r:0,c:-1}};
+  let currentLevel = 1;
+  let routePath = [];
+  let route = new Set();
+  let obstacles = new Set();
+  let start = {r:8,c:0};
+  let goal = {r:0,c:0};
+  let completedLevels = new Set();
+  try {
+    const stored = JSON.parse(localStorage.getItem(PROGRESS_STORAGE_KEY) || '[]');
+    if(Array.isArray(stored)) completedLevels = new Set(stored.filter(n=>Number.isInteger(n)&&n>=1&&n<=TOTAL_LEVELS));
+  } catch (_) {}
   const RABBIT_SVG = `<svg class="rabbit-svg" viewBox="0 0 88 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <ellipse cx="44" cy="88" rx="23" ry="5" fill="#15445b" opacity=".15"/>
     <path d="M23 38C12 24 15 4 25 4c11 0 16 20 17 34Z" fill="#fffaf0" stroke="#334155" stroke-width="2.8" stroke-linejoin="round"/>
@@ -341,7 +423,6 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   const FLAG_SVG = `<svg class="flag-svg" viewBox="0 0 36 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 36V4" stroke="#536779" stroke-width="3" stroke-linecap="round"/><path d="M9 5h21l-5 7 5 7H9Z" fill="#ff5d78" stroke="#7f3448" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 5h10v7H9Z" fill="#fff"/><path d="M19 12h11l-5 7H19Z" fill="#ffd454"/><circle cx="7" cy="3.5" r="2.5" fill="#ffd454"/></svg>`;
   const LEAF_SVG = `<svg class="obstacle-icon leaf-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 34V17" stroke="#416c35" stroke-width="3" stroke-linecap="round"/><path d="M19 21C5 20 5 9 6 6c12 0 17 5 13 15Z" fill="#43b95a" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M20 17C19 7 28 3 35 4c1 11-4 17-15 13Z" fill="#7bd957" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M10 10l8 8m14-10-10 9" stroke="#d7ff94" stroke-width="1.5" stroke-linecap="round"/></svg>`;
   const ROCK_SVG = `<svg class="obstacle-icon rock-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 29 9 14 18 7 29 11 36 24 31 32 12 34Z" fill="#9caec1" stroke="#536a80" stroke-width="2.4" stroke-linejoin="round"/><path d="m10 16 8-6 5 8-9 4Zm15 3 5-3 3 8-8 4Z" fill="#dce8f4"/><path d="m12 29 6-5m8 9 3-5" stroke="#71869a" stroke-width="2" stroke-linecap="round"/></svg>`;
-  const start = {r:8,c:0}, goal = {r:0,c:8};
   let robot = {...start}, dir = 0, items = [], running = false, stepQueue = [], won = false;
   const dirs = [{r:-1,c:0,name:'utara',emoji:'⬆️'},{r:0,c:1,name:'timur',emoji:'➡️'},{r:1,c:0,name:'selatan',emoji:'⬇️'},{r:0,c:-1,name:'barat',emoji:'⬅️'}];
   function isOpen(r,c){return r>=0&&c>=0&&r<9&&c<9&&route.has(`${r},${c}`)}
@@ -390,8 +471,101 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     const labels={idle:'▶ Jalankan',running:'⏳ Berjalan…',retry:'↻ Coba Lagi',won:'✓ Berhasil!'};
     ['#runMaze','#runProgram'].forEach(selector=>{const button=$(selector);if(button)button.textContent=labels[state]||labels.idle;});
   }
-  function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Kiko di titik awal');}
+  function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus(`Level ${currentLevel} · Kiko siap bertualang!`);}
   function updateCount(){$('#count').textContent=countNodes(items);const empty=$('#empty');if(empty)empty.style.display=items.length?'none':'block';}
+  function saveCompletedLevels(){
+    try{localStorage.setItem(PROGRESS_STORAGE_KEY,JSON.stringify([...completedLevels].sort((a,b)=>a-b)))}catch(_){}
+  }
+  function refreshLevelProgress(){
+    const level=LEVELS[currentLevel-1];
+    $('#stageTitle').textContent=`Level ${currentLevel} — ${level.title}`;
+    $('#currentLevelLabel').textContent=`LEVEL ${String(currentLevel).padStart(2,'0')} / ${TOTAL_LEVELS}`;
+    $('#completedLabel').textContent=`${completedLevels.size} / ${TOTAL_LEVELS} selesai`;
+    $('#levelObjectiveTitle').textContent=`Level ${currentLevel} · ${level.title}`;
+    $('#levelObjective').textContent=`${level.objective} · Target belajar: ${level.skill}.`;
+    $('#levelProgressSummary').textContent=completedLevels.size===TOTAL_LEVELS
+      ? '🏆 Luar biasa! Semua 30 level sudah selesai.'
+      : `${completedLevels.size} dari ${TOTAL_LEVELS} level selesai — ${TOTAL_LEVELS-completedLevels.size} lagi untuk menamatkan permainan.`;
+    renderLevelPicker();
+  }
+  function renderLevelPicker(){
+    const grid=$('#levelGrid');
+    if(!grid)return;
+    grid.innerHTML='';
+    LEVELS.forEach(level=>{
+      const isDone=completedLevels.has(level.id);
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='level-tile'+(level.id===currentLevel?' active':'')+(isDone?' completed':'');
+      btn.setAttribute('aria-label',`Level ${level.id}: ${level.title}${isDone?', selesai':''}`);
+      const top=document.createElement('span');top.className='level-tile-top';
+      const number=document.createElement('span');number.className='level-number';number.textContent=`LEVEL ${String(level.id).padStart(2,'0')}`;
+      const state=document.createElement('span');state.className='level-state'+(isDone?'':' pending');state.textContent=isDone?'✓':'○';
+      top.append(number,state);
+      const title=document.createElement('strong');title.textContent=level.title;
+      const details=document.createElement('small');details.textContent=`${level.moves.length} langkah · ${level.skill}`;
+      const status=document.createElement('small');status.textContent=isDone?'Sudah selesai':(level.id===currentLevel?'Sedang dimainkan':'Belum selesai');
+      btn.append(top,title,details,status);
+      btn.addEventListener('click',()=>{loadLevel(level.id);$('#levelModal').classList.remove('open')});
+      grid.append(btn);
+    });
+  }
+  function recordLevelComplete(){
+    const isNew=!completedLevels.has(currentLevel);
+    completedLevels.add(currentLevel);
+    saveCompletedLevels();
+    refreshLevelProgress();
+    if(completedLevels.size===TOTAL_LEVELS){
+      setStatus('🏆 Semua 30 level selesai!');
+      toast('Luar biasa! Kamu menamatkan Petualangan Kiko 30/30!');
+    }else{
+      setStatus(`🎉 Level ${currentLevel} selesai! Progres ${completedLevels.size}/30`);
+      toast(isNew?`Hebat! Level ${currentLevel} selesai. ${completedLevels.size}/30 level terkumpul!`:'Level ini sudah tercatat selesai. Coba level lain!');
+    }
+    setRunButtonState('won');
+  }
+  function updateToolboxForLevel(){
+    const unlockAt={forward:1,left:2,right:2,repeat:6,if:16,ifleft:16,ifright:16};
+    document.querySelectorAll('#toolbox .block[data-type]').forEach(block=>{
+      block.hidden=currentLevel<unlockAt[block.dataset.type];
+    });
+  }
+  function loadLevel(levelId){
+    const level=LEVELS[levelId-1];
+    if(!level)return;
+    currentLevel=levelId;
+    start={r:8,c:0};
+    const points=[{...start}];
+    let pos={...start};
+    for(const move of level.moves){
+      const delta=MOVE_DELTAS[move];
+      if(!delta)throw new Error(`Gerakan level ${levelId} tidak dikenal: ${move}`);
+      pos={r:pos.r+delta.r,c:pos.c+delta.c};
+      if(pos.r<0||pos.r>8||pos.c<0||pos.c>8)throw new Error(`Lintasan level ${levelId} keluar grid.`);
+      points.push(pos);
+    }
+    routePath=points;
+    route=new Set(points.map(point=>`${point.r},${point.c}`));
+    goal={...points[points.length-1]};
+    obstacles=new Set();
+    for(let r=0;r<9;r++)for(let c=0;c<9;c++){
+      const key=`${r},${c}`;
+      const hash=(r*13+c*7+levelId*5)%11;
+      if(!route.has(key)&&(hash===0||hash===3||((r+c+levelId)%13===0)))obstacles.add(key);
+    }
+    robot={...start};
+    dir=0;
+    won=false;
+    running=false;
+    stepQueue=[];
+    items=[];
+    renderProgram();
+    updateToolboxForLevel();
+    refreshLevelProgress();
+    drawMaze();
+    setRunButtonState('idle');
+    setStatus(`Level ${levelId}: ${level.title}`);
+  }
   function isContainer(item){return ['repeat','if','ifleft','ifright'].includes(item.type)}
   function makeItem(type,n=4){
     return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[]};
@@ -594,7 +768,11 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       const d=dirs[dir], nr=robot.r+d.r,nc=robot.c+d.c;
       if(!isOpen(nr,nc)){setStatus('Ada tembok!');return false}
       robot={r:nr,c:nc};drawMaze();
-      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');toast('Hebat! Kiko berhasil sampai ke bendera!');return true}
+      if(robot.r===goal.r&&robot.c===goal.c){
+        won=true;
+        recordLevelComplete();
+        return true;
+      }
       return true;
     }
     return true;
@@ -642,7 +820,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       if(!ok){blocked=true;break}
     }
     if(!won){
-      setStatus(blocked?'Kiko terhalang — perbaiki blok, lalu coba lagi!':'Belum berhasil — perbaiki blok dan ulangi level!');
+      setStatus(blocked?'Kiko terhalang — perbaiki blok, lalu coba lagi!':`Level ${currentLevel} belum selesai — perbaiki blok dan ulangi.`);
       toast(blocked?'Ups! Jalurnya terhalang. Perbaiki blok lalu coba lagi.':'Kiko belum sampai bendera. Ubah program dan jalankan lagi dari awal.');
       setRunButtonState('retry');
     } else {
@@ -681,18 +859,22 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   $('#stepProgram').addEventListener('click',oneStep);$('#stepMaze').addEventListener('click',oneStep);
   $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];setRunButtonState('idle');setStatus('Kiko siap mencoba lagi');});
   $('#clearProgram').addEventListener('click',()=>{items=[];stepQueue=[];renderProgram();toast('Program dikosongkan.')});
-  $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();setRunButtonState('idle');setStatus('Level diulang — susun program baru!');toast('Level dimulai kembali dari awal.');});
+  $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();setRunButtonState('idle');setStatus(`Level ${currentLevel} diulang — susun program baru!`);toast('Level dimulai kembali dari awal.');});
   document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
     if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
   }));
   function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
-  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Klik blok di toolbox atau seret ke area Program Saya. Susun perintah, lalu tekan Jalankan atau Langkah. Blok maju bergerak satu petak; belok kiri/kanan mengubah arah robot. Blok kondisi memeriksa jalur di depan/kiri/kanan; jika terbuka, ia melakukan tindakan yang tertulis pada blok. Tombol Reset robot mengembalikan Kiko ke titik awal tanpa menghapus program.'));
+  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Pilih level dari tombol Level di bagian atas. Kamu boleh memainkan level mana saja, tetapi petualangan baru tamat setelah semua 30 level diselesaikan. Susun blok di Program Saya dan tekan Jalankan. Level awal hanya memakai maju; belokan, ulangi, dan kondisi diperkenalkan bertahap. Progres level tersimpan di browser ini.'));
   $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('open'));
   $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
   // Keyboard shortcut: Ctrl+Enter runs program.
   document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runAll()}});
-  $('.rabbit-badge').innerHTML=RABBIT_SVG;$('.legend-flag').innerHTML=FLAG_SVG;drawMaze();renderProgram();setStatus('Kiko siap bertualang!');
+  $('#openLevels').addEventListener('click',()=>{$('#levelModal').classList.add('open');renderLevelPicker()});
+  $('#closeLevels').addEventListener('click',()=>$('#levelModal').classList.remove('open'));
+  $('#levelModal').addEventListener('click',event=>{if(event.target.id==='levelModal')$('#levelModal').classList.remove('open')});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'){$('#levelModal').classList.remove('open');$('#modal').classList.remove('open')}});
+  $('.rabbit-badge').innerHTML=RABBIT_SVG;$('.legend-flag').innerHTML=FLAG_SVG;loadLevel(1);
 })();
 </script>
 </body>
