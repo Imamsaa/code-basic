@@ -314,6 +314,39 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .event-container .container-bottom{--control-color:#ffb52e;--control-tint:#fff8e6;color:#9d701e}
 @media(max-width:480px){.block-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.block-category{font-size:10px;padding:7px 4px}}
 
+
+/* Closer Scratch Control palette: orange C-blocks, hexagonal Boolean input, and a split else branch. */
+.control-toolbox,.control-toolbox.loop,.control-toolbox.condition,.control-toolbox.control,
+.block-container,.block-container.loop-container,.block-container.condition-container,
+.block-container.left-container,.block-container.right-container,.block-container.event-container{
+ --control-color:#ffab19!important;--control-tint:#fff4d9!important;
+}
+.loop,.condition,.control{background:#ffab19!important}
+.control-toolbox-head{background:#ffab19!important;color:#694707!important;border-radius:7px 7px 2px 2px}
+.control-toolbox:before,.control-toolbox:after,.control-toolbox-foot{background:#ffab19!important}
+.control-toolbox-hole{background:#fff4d9!important;border-color:#ffab19!important}
+.control-toolbox-else{padding:5px 9px 5px 12px;background:#ffab19;color:#70490a;font-size:11px;font-weight:900;border-left:5px solid #ffab19}
+.boolean-slot{
+ display:inline-flex;align-items:center;justify-content:center;min-height:23px;
+ padding:3px 11px;color:#72500d;background:#f4c65b;
+ clip-path:polygon(12% 0,88% 0,100% 50%,88% 100%,12% 100%,0 50%);
+ font-size:10px;font-weight:900;white-space:nowrap;
+}
+.control-header{background:#ffab19!important;color:#694707!important}
+.control-header .control-title{flex:0 0 auto}
+.control-header .boolean-slot{min-height:25px;padding:3px 12px;background:#f3c65c}
+.container-body{--control-color:#ffab19!important;--control-tint:#fff4d9!important}
+.container-bottom{--control-color:#ffab19!important;--control-tint:#fff4d9!important;color:#9b6914!important}
+.else-separator{width:100%;padding:5px 10px 5px 17px;background:#ffab19;color:#70490a;font-size:11px;font-weight:900;border-left:5px solid #ffab19}
+.else-body{background:#fff8e6;border-left:5px solid #ffab19;border-right:5px solid #ffab19;padding:8px 9px 8px 12px;min-height:48px;display:flex;flex-direction:column;gap:2px}
+.else-body.drag-over{background:#fff0bf;outline:2px dashed #d79b26;outline-offset:-4px}
+.control-toolbox .control-toolbox-else{background:#ffab19;color:#70490a}
+.control-toolbox[data-type="ifelse"]{min-width:0}
+.control-toolbox[data-type="ifelse"] .control-toolbox-hole{min-height:22px}
+.control-toolbox[data-type="ifelse"] .control-toolbox-foot{height:10px}
+.block-container.ifelse-container .control-header{border-radius:8px 8px 2px 2px}
+.block-container.ifelse-container .container-bottom{border-radius:0 0 0 7px}
+
 </style>
 </head>
 <body>
@@ -357,20 +390,31 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
           <div class="block looks-block" draggable="true" data-type="say" data-category="looks">💬 katakan “Semangat!”</div>
           <div class="block sound-block" draggable="true" data-type="sound" data-category="sound">♫ bunyikan nada</div>
           <div class="block loop control-toolbox" draggable="true" data-type="repeat" data-category="control">
-            <div class="control-toolbox-head">⟳ ulangi <select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select> kali</div>
+            <div class="control-toolbox-head"><span>ulangi</span><select class="mini" aria-label="Jumlah pengulangan"><option>2</option><option selected>4</option><option>6</option><option>8</option><option>10</option></select><span>kali</span></div>
+            <div class="control-toolbox-hole">letakkan blok di sini</div><div class="control-toolbox-foot"></div>
+          </div>
+          <div class="block loop control-toolbox" draggable="true" data-type="forever" data-category="control">
+            <div class="control-toolbox-head"><span>↻ selamanya</span></div>
             <div class="control-toolbox-hole">letakkan blok di sini</div><div class="control-toolbox-foot"></div>
           </div>
           <div class="block condition control-toolbox" draggable="true" data-type="if" data-category="control">
-            <div class="control-toolbox-head">◆ jika jalur di depan</div>
+            <div class="control-toolbox-head"><span>jika</span><span class="boolean-slot">jalur depan?</span><span>maka</span></div>
             <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
           </div>
           <div class="block control control-toolbox" draggable="true" data-type="ifleft" data-category="control">
-            <div class="control-toolbox-head">↰ jika jalur kiri</div>
+            <div class="control-toolbox-head"><span>jika</span><span class="boolean-slot">jalur kiri?</span><span>maka</span></div>
             <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
           </div>
           <div class="block control control-toolbox" draggable="true" data-type="ifright" data-category="control">
-            <div class="control-toolbox-head">↱ jika jalur kanan</div>
+            <div class="control-toolbox-head"><span>jika</span><span class="boolean-slot">jalur kanan?</span><span>maka</span></div>
             <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
+          </div>
+          <div class="block condition control-toolbox" draggable="true" data-type="ifelse" data-category="control">
+            <div class="control-toolbox-head"><span>jika</span><span class="boolean-slot">jalur depan?</span><span>maka</span></div>
+            <div class="control-toolbox-hole">jika benar</div>
+            <div class="control-toolbox-else">jika tidak</div>
+            <div class="control-toolbox-hole">jika salah</div>
+            <div class="control-toolbox-foot"></div>
           </div>
           <p id="toolboxHint" style="font-size:11px;color:#84929c;line-height:1.5">Klik blok untuk menambahkan, atau seret ke ruang program.</p>
         </aside>
@@ -475,7 +519,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   const FLAG_SVG = `<svg class="flag-svg" viewBox="0 0 36 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 36V4" stroke="#536779" stroke-width="3" stroke-linecap="round"/><path d="M9 5h21l-5 7 5 7H9Z" fill="#ff5d78" stroke="#7f3448" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 5h10v7H9Z" fill="#fff"/><path d="M19 12h11l-5 7H19Z" fill="#ffd454"/><circle cx="7" cy="3.5" r="2.5" fill="#ffd454"/></svg>`;
   const LEAF_SVG = `<svg class="obstacle-icon leaf-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 34V17" stroke="#416c35" stroke-width="3" stroke-linecap="round"/><path d="M19 21C5 20 5 9 6 6c12 0 17 5 13 15Z" fill="#43b95a" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M20 17C19 7 28 3 35 4c1 11-4 17-15 13Z" fill="#7bd957" stroke="#245d3a" stroke-width="2" stroke-linejoin="round"/><path d="M10 10l8 8m14-10-10 9" stroke="#d7ff94" stroke-width="1.5" stroke-linecap="round"/></svg>`;
   const ROCK_SVG = `<svg class="obstacle-icon rock-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 29 9 14 18 7 29 11 36 24 31 32 12 34Z" fill="#9caec1" stroke="#536a80" stroke-width="2.4" stroke-linejoin="round"/><path d="m10 16 8-6 5 8-9 4Zm15 3 5-3 3 8-8 4Z" fill="#dce8f4"/><path d="m12 29 6-5m8 9 3-5" stroke="#71869a" stroke-width="2" stroke-linecap="round"/></svg>`;
-  let robot = {...start}, dir = 0, items = [], running = false, stepQueue = [], won = false;
+  let robot = {...start}, dir = 0, items = [], running = false, stepQueue = [], won = false, executionError = '';
   const dirs = [{r:-1,c:0,name:'utara',emoji:'⬆️'},{r:0,c:1,name:'timur',emoji:'➡️'},{r:1,c:0,name:'selatan',emoji:'⬇️'},{r:0,c:-1,name:'barat',emoji:'⬅️'}];
   function isOpen(r,c){return r>=0&&c>=0&&r<9&&c<9&&route.has(`${r},${c}`)}
   function drawMaze(){
@@ -599,14 +643,14 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     $('#toolboxTitle').textContent=CATEGORY_NAMES[category]||'Perintah';
     let visible=0;
     document.querySelectorAll('#toolbox .block[data-type]').forEach(block=>{
-      const unlockAt={forward:1,left:2,right:2,'event-start':1,say:3,sound:4,repeat:6,if:16,ifleft:16,ifright:16};
+      const unlockAt={forward:1,left:2,right:2,'event-start':1,say:3,sound:4,repeat:6,forever:10,if:16,ifleft:16,ifright:16,ifelse:21};
       const shown=block.dataset.category===category&&currentLevel>=unlockAt[block.dataset.type];
       block.hidden=!shown;
       if(shown)visible++;
     });
     const minLevel=CATEGORY_UNLOCK[category]||1;
     $('#toolboxHint').textContent=visible
-      ? 'Klik blok untuk menambahkan, atau seret ke area program. Blok kontrol bisa menampung beberapa perintah.'
+      ? 'Klik blok untuk menambahkan, atau seret ke area program. Blok kontrol bisa menampung beberapa perintah. `Jika–jika tidak` memiliki dua ruang perintah.'
       : `Blok kategori ini terbuka mulai level ${minLevel}. Pilih level itu untuk mencobanya.`;
   }
   function updateToolboxForLevel(){
@@ -648,24 +692,24 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     setRunButtonState('idle');
     setStatus(`Level ${levelId}: ${level.title}`);
   }
-  function isContainer(item){return ['event-start','repeat','if','ifleft','ifright'].includes(item.type)}
+  function isContainer(item){return ['event-start','repeat','forever','if','ifleft','ifright','ifelse'].includes(item.type)}
   function makeItem(type,n=4){
-    return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[]};
+    return {id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4,children:[],elseChildren:[]};
   }
   function blockLabel(type,n){
-    return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan','event-start':'🚩 ketika mulai diklik',say:'💬 katakan “Semangat!”',sound:'♫ bunyikan nada',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika jalur di depan',ifleft:'↰ jika jalur kiri',ifright:'↱ jika jalur kanan'})[type]||type;
+    return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan','event-start':'🚩 ketika mulai diklik',say:'💬 katakan “Semangat!”',sound:'♫ bunyikan nada',repeat:`ulangi ${n} kali`,forever:'selamanya',if:'jika jalur depan?',ifleft:'jika jalur kiri?',ifright:'jika jalur kanan?',ifelse:'jika jalur depan? maka / jika tidak'})[type]||type;
   }
   function blockClass(type){
     return type==='forward'?'move':(['left','right'].includes(type)?'turn':type==='repeat'?'loop':type==='if'?'condition':type==='say'?'looks-block':type==='sound'?'sound-block':type==='event-start'?'event-toolbox':'control');
   }
   function countNodes(list){
-    return list.reduce((total,item)=>total+1+(item.children?countNodes(item.children):0),0);
+    return list.reduce((total,item)=>total+1+countNodes(item.children||[])+countNodes(item.elseChildren||[]),0);
   }
   function updateCount(){$('#count').textContent=countNodes(items)}
   function findNode(list,id){
     for(const item of list){
       if(item.id===id)return item;
-      const nested=findNode(item.children||[],id);
+      const nested=findNode(item.children||[],id)||findNode(item.elseChildren||[],id);
       if(nested)return nested;
     }
     return null;
@@ -674,13 +718,13 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     const index=list.findIndex(item=>item.id===id);
     if(index>=0)return list.splice(index,1)[0];
     for(const item of list){
-      const nested=removeNode(item.children||[],id);
+      const nested=removeNode(item.children||[],id)||removeNode(item.elseChildren||[],id);
       if(nested)return nested;
     }
     return null;
   }
   function containsNode(item,id){
-    return item.id===id||(item.children||[]).some(child=>containsNode(child,id));
+    return item.id===id||(item.children||[]).some(child=>containsNode(child,id))||(item.elseChildren||[]).some(child=>containsNode(child,id));
   }
   function insertIntoList(list,item,beforeId=null){
     const index=beforeId?list.findIndex(existing=>existing.id===beforeId):-1;
@@ -694,7 +738,12 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(payload.startsWith('new:')){
       const [,type,n]=payload.split(':');
       if(type==='event-start'&&ownerId){toast('Blok “ketika mulai diklik” hanya diletakkan di bagian utama program.');return;}
-      insertIntoList(targetList,makeItem(type,n),beforeId);
+      const created=makeItem(type,n);
+      if(!ownerId&&targetList===items&&!beforeId&&type!=='event-start'){
+        const activeHat=[...items].reverse().find(item=>item.type==='event-start');
+        if(activeHat)insertIntoList(activeHat.children,created,null);
+        else insertIntoList(targetList,created,beforeId);
+      }else insertIntoList(targetList,created,beforeId);
     }else if(payload.startsWith('move:')){
       const movingId=payload.slice(5);
       if(movingId===beforeId)return;
@@ -763,8 +812,20 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         header.className='control-header';
         const title=document.createElement('span');
         title.className='control-title';
-        title.textContent=blockLabel(item.type,item.n);
-        header.append(title);
+        if(['if','ifleft','ifright','ifelse'].includes(item.type)){
+          title.textContent='jika';
+          const condition=document.createElement('span');
+          condition.className='boolean-slot';
+          condition.textContent=item.type==='ifleft'?'jalur kiri?':item.type==='ifright'?'jalur kanan?':'jalur depan?';
+          header.append(title,condition);
+          const thenLabel=document.createElement('span');
+          thenLabel.className='then-label';
+          thenLabel.textContent='maka';
+          header.append(thenLabel);
+        }else{
+          title.textContent=blockLabel(item.type,item.n);
+          header.append(title);
+        }
         if(item.type==='repeat'){
           const select=document.createElement('select');
           select.className='mini';
@@ -784,17 +845,29 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         remove.className='control-delete';remove.type='button';remove.textContent='×';remove.title='Hapus blok dan isinya';
         remove.addEventListener('click',event=>{event.stopPropagation();removeNode(items,item.id);renderProgram();setRunButtonState('idle')});
         header.append(remove);
-        const body=document.createElement('div');
-        body.className='container-body';
-        body.dataset.ownerId=item.id;
-        body.addEventListener('dragover',event=>{event.preventDefault();event.stopPropagation();body.classList.add('drag-over');event.dataTransfer.dropEffect='copy'});
-        body.addEventListener('dragleave',event=>{if(!body.contains(event.relatedTarget))body.classList.remove('drag-over')});
-        body.addEventListener('drop',event=>{body.classList.remove('drag-over');dropIntoList(event,item.children,item.id,null)});
-        renderList(item.children,body,item.id);
+        const makeBranchBody=(branch,extraClass='')=>{
+          const body=document.createElement('div');
+          body.className='container-body '+extraClass;
+          body.dataset.ownerId=item.id;
+          body.addEventListener('dragover',event=>{event.preventDefault();event.stopPropagation();body.classList.add('drag-over');event.dataTransfer.dropEffect='copy'});
+          body.addEventListener('dragleave',event=>{if(!body.contains(event.relatedTarget))body.classList.remove('drag-over')});
+          body.addEventListener('drop',event=>{body.classList.remove('drag-over');dropIntoList(event,branch,item.id,null)});
+          renderList(branch,body,item.id);
+          return body;
+        };
+        const body=makeBranchBody(item.children);
+        frame.append(header,body);
+        if(item.type==='ifelse'){
+          const elseLabel=document.createElement('div');
+          elseLabel.className='else-separator';
+          elseLabel.textContent='jika tidak';
+          const elseBody=makeBranchBody(item.elseChildren,'else-body');
+          frame.append(elseLabel,elseBody);
+        }
         const footer=document.createElement('div');
         footer.className='container-bottom';
-        footer.textContent=item.type==='repeat'?'akhir ulangi':item.type==='event-start'?'akhir skrip':'akhir jika';
-        frame.append(header,body,footer);
+        footer.textContent=item.type==='repeat'?'akhir ulangi':item.type==='forever'?'akhir selamanya':item.type==='event-start'?'akhir skrip':item.type==='ifelse'?'akhir jika / jika tidak':'akhir jika';
+        frame.append(footer);
         row.append(frame);
       }else{
         const block=document.createElement('div');
@@ -828,7 +901,9 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     updateCount();
   }
   function addItem(type,n=4){
-    items.push(makeItem(type,n));
+    const item=makeItem(type,n);
+    const activeHat=type==='event-start'?null:[...items].reverse().find(existing=>existing.type==='event-start');
+    if(activeHat)activeHat.children.push(item);else items.push(item);
     setRunButtonState('idle');
     renderProgram();
   }
@@ -868,7 +943,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     return true;
   }
   function compile(){return items.map(cloneItem)}
-  function cloneItem(item){return {...item,children:(item.children||[]).map(cloneItem)}}
+  function cloneItem(item){return {...item,children:(item.children||[]).map(cloneItem),elseChildren:(item.elseChildren||[]).map(cloneItem)}}
   async function executeList(list){
     for(const item of list){
       if(won)return true;
@@ -896,9 +971,21 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       }
       return true;
     }
-    if(['if','ifleft','ifright'].includes(item.type)){
+    if(item.type==='forever'){
+      if(!(item.children||[]).length){toast('Letakkan minimal satu perintah di dalam selamanya.');return false}
+      let rounds=0;
+      while(!won){
+        if(++rounds>100){executionError='Perulangan selamanya berjalan terlalu lama. Tambahkan kondisi atau perintah gerak.';setStatus(executionError);return false}
+        const ok=await executeList(item.children||[]);
+        if(!ok)return false;
+      }
+      return true;
+    }
+    if(['if','ifleft','ifright','ifelse'].includes(item.type)){
       const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
-      if(pathAhead(offset))return executeList(item.children||[]);
+      const condition=pathAhead(offset);
+      if(condition)return executeList(item.children||[]);
+      if(item.type==='ifelse')return executeList(item.elseChildren||[]);
       return true;
     }
     await new Promise(resolve=>setTimeout(resolve,260));
@@ -940,6 +1027,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(running)return;
     if(!items.length){toast('Susun blok perintah dulu, ya!');return}
     running=true;
+    executionError='';
     stepQueue=[];
     resetRobot();
     setStatus('Kiko mulai berjalan…');
@@ -952,8 +1040,8 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       if(!ok){blocked=true;break}
     }
     if(!won){
-      setStatus(blocked?'Kiko terhalang — perbaiki blok, lalu coba lagi!':`Level ${currentLevel} belum selesai — perbaiki blok dan ulangi.`);
-      toast(blocked?'Ups! Jalurnya terhalang. Perbaiki blok lalu coba lagi.':'Kiko belum sampai bendera. Ubah program dan jalankan lagi dari awal.');
+      setStatus(executionError|| (blocked?'Kiko terhalang — perbaiki blok, lalu coba lagi!':`Level ${currentLevel} belum selesai — perbaiki blok dan ulangi.`));
+      toast(executionError|| (blocked?'Ups! Jalurnya terhalang. Perbaiki blok lalu coba lagi.':'Kiko belum sampai bendera. Ubah program dan jalankan lagi dari awal.'));
       setRunButtonState('retry');
     } else {
       setRunButtonState('won');
@@ -997,7 +1085,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
   }));
   function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
-  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Pilih level dari tombol Level di bagian atas. Kamu boleh memainkan level mana saja, tetapi petualangan baru tamat setelah semua 30 level diselesaikan. Pilih kategori blok seperti Gerak, Peristiwa, Tampilan, Suara, dan Kontrol. Blok “ketika mulai diklik” menjadi awal skrip; letakkan perintah di bawahnya. Blok ulangi dan jika dapat menampung banyak blok di dalamnya. Blok katakan menampilkan balon kata Kiko, sedangkan bunyikan nada memainkan efek suara. Tekan Jalankan untuk menguji program. Progres level tersimpan di browser ini.'));
+  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Pilih level dari tombol Level di bagian atas. Kamu boleh memainkan level mana saja, tetapi petualangan baru tamat setelah semua 30 level diselesaikan. Pilih kategori blok seperti Gerak, Peristiwa, Tampilan, Suara, dan Kontrol. Blok “ketika mulai diklik” menjadi awal skrip; letakkan perintah di bawahnya. Blok ulangi dan selamanya dapat menampung banyak blok; jika–maka dan jika–maka–jika tidak memiliki ruang untuk tiap cabang. Blok katakan menampilkan balon kata Kiko, sedangkan bunyikan nada memainkan efek suara. Tekan Jalankan untuk menguji program. Progres level tersimpan di browser ini.'));
   $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('open'));
   $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
   // Keyboard shortcut: Ctrl+Enter runs program.
