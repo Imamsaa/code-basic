@@ -211,6 +211,21 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
  .control-title{flex-basis:100px}
 }
 
+
+/* Connection tabs on C-blocks, like standard statement/loop blocks. */
+.program-item .block-container::before{
+ content:"";position:absolute;z-index:3;left:22px;top:-4px;width:19px;height:8px;
+ background:var(--control-color);border-radius:5px 5px 0 0;
+}
+.program-item .block-container::after{
+ content:"";position:absolute;z-index:3;left:22px;bottom:-5px;width:19px;height:8px;
+ background:var(--control-color);border-radius:0 0 5px 5px;
+}
+.container-body>.program-item:last-child{margin-bottom:2px}
+.container-body.drag-over .container-placeholder{border-color:#efad2d;background:#fff8df;color:#936314}
+#toolbox .control-toolbox{cursor:grab}
+#toolbox .control-toolbox:active{cursor:grabbing}
+
 </style>
 </head>
 <body>
@@ -254,7 +269,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
             <div class="control-toolbox-head">↱ jika jalur kanan</div>
             <div class="control-toolbox-hole">lakukan jika benar</div><div class="control-toolbox-foot"></div>
           </div>
-          <p style="font-size:11px;color:#84929c;line-height:1.5">Klik blok untuk menambahkan. Atau seret ke area program.</p>
+          <p style="font-size:11px;color:#84929c;line-height:1.5">Klik blok untuk menambahkan. Seret blok kontrol, lalu jatuhkan perintah lain di ruang bagian dalamnya.</p>
         </aside>
         <section class="program-panel">
           <div class="program-head"><strong>Program Saya</strong><span>Urutan dari atas ke bawah</span></div>
