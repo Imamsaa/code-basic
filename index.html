@@ -997,7 +997,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
   }));
   function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
-  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Pilih level dari tombol Level di bagian atas. Kamu boleh memainkan level mana saja, tetapi petualangan baru tamat setelah semua 30 level diselesaikan. Susun blok di Program Saya dan tekan Jalankan. Level awal hanya memakai maju; belokan, ulangi, dan kondisi diperkenalkan bertahap. Progres level tersimpan di browser ini.'));
+  $('#helpTop').addEventListener('click',()=>openHelp('Cara bermain','Pilih level dari tombol Level di bagian atas. Kamu boleh memainkan level mana saja, tetapi petualangan baru tamat setelah semua 30 level diselesaikan. Pilih kategori blok seperti Gerak, Peristiwa, Tampilan, Suara, dan Kontrol. Blok “ketika mulai diklik” menjadi awal skrip; letakkan perintah di bawahnya. Blok ulangi dan jika dapat menampung banyak blok di dalamnya. Blok katakan menampilkan balon kata Kiko, sedangkan bunyikan nada memainkan efek suara. Tekan Jalankan untuk menguji program. Progres level tersimpan di browser ini.'));
   $('#closeModal').addEventListener('click',()=>$('#modal').classList.remove('open'));
   $('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.remove('open')});
   // Keyboard shortcut: Ctrl+Enter runs program.
