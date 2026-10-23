@@ -28,7 +28,7 @@ button{font:inherit;cursor:pointer;border:0}button:focus-visible,[tabindex]:focu
 .workarea{display:grid;grid-template-columns:minmax(135px,36%) minmax(0,64%);min-height:0;flex:1}.toolbox{padding:10px;background:#f5f6f8;border-right:1px solid var(--line);overflow:auto}.toolbox h3{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:#82909a;margin:4px 4px 9px}.block{display:block;width:max-content;max-width:100%;position:relative;margin:7px 0;padding:9px 12px 9px 15px;color:#fff;font-weight:750;font-size:12px;border-radius:4px 7px 7px 4px;box-shadow:inset 0 -3px #0001;cursor:grab;user-select:none;white-space:normal}.block:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:#ffffff35;border-radius:4px 0 0 4px}.move{background:#09a9c5}.turn{background:#05a8d1}.loop{background:#e91e8b}.condition{background:#168ac4}.control{background:#8b59ca}.block .mini{background:#fff;color:#3b4c59;border:0;border-radius:3px;padding:2px 4px;font-weight:800}.block .remove{background:#ffffff35;border:0;color:#fff;border-radius:3px;margin-left:7px;padding:1px 5px}
 .program-panel{display:flex;flex-direction:column;min-width:0;min-height:0}.program-head{padding:10px 13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e7ebee;color:#6d7d89;font-size:12px}.program-head strong{color:#344a59}.program{padding:12px;overflow:auto;flex:1;min-height:160px;background:#fff}.program-empty{border:2px dashed #d6dfe5;border-radius:7px;padding:18px;text-align:center;color:#8a99a4;margin:10px 0;line-height:1.6}.program-item{display:flex;align-items:center;gap:7px;margin:5px 0;min-height:35px}.program-item .block{margin:0;min-width:145px}.program-item .indent{width:15px;align-self:stretch;border-left:2px solid #d8e0e6;margin-left:5px}.program-item .block .mini{margin-left:4px}.program-item.nested{margin-left:22px}.program-item.drop-target{border-top:3px solid var(--cyan)}
 .workspace-footer{padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;background:#fafbfc}.run-btn{background:#22a447;color:#fff;border-radius:5px;padding:9px 14px;font-weight:800}.step-btn{background:#fff;border:1px solid var(--line);border-radius:5px;padding:8px 12px;font-weight:700;color:#405463}.reset-btn{margin-left:auto;background:#fff;border:1px solid var(--line);border-radius:5px;padding:8px 11px;color:#687987;font-weight:700}
-.console{display:none;padding:9px 12px;background:#1e2934;color:#c7f9d4;font:12px ui-monospace,monospace;max-height:95px;overflow:auto;white-space:pre-wrap}.console.show{display:block}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#253746;color:#fff;padding:11px 16px;border-radius:8px;box-shadow:0 4px 18px #0003;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#253746;color:#fff;padding:11px 16px;border-radius:8px;box-shadow:0 4px 18px #0003;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
 .modal-backdrop{display:none;position:fixed;inset:0;background:#13212dcc;z-index:20;align-items:center;justify-content:center;padding:20px}.modal-backdrop.open{display:flex}.modal{background:#fff;border-radius:10px;padding:22px;max-width:520px;width:100%;box-shadow:0 15px 50px #0004}.modal h2{margin:0 0 8px}.modal p{line-height:1.55;color:#586b79}.modal button{float:right;background:var(--cyan);color:white;padding:9px 14px;border-radius:5px;font-weight:800}
 @media(max-width:850px){.topbar{padding:0 10px;gap:8px}.brand{min-width:auto}.brand-name{display:none}.stage-title{font-size:12px}.app{height:auto;min-height:0;grid-template-columns:1fr;padding:8px}.left{min-height:460px}.right{min-height:600px}.workarea{grid-template-columns:130px minmax(0,1fr)}.progress{max-width:150px}.top-actions button{padding:6px 8px}.maze{width:min(100%,390px)}}
 @media(max-width:480px){.topbar{height:auto;min-height:54px;flex-wrap:wrap;padding:8px}.progress{display:none}.top-actions{margin-left:auto}.app{grid-template-columns:minmax(0,1fr)}.left{min-height:410px}.workarea{grid-template-columns:112px minmax(0,1fr)}.toolbox{padding:6px}.block{font-size:11px;padding:8px}.program-item .block{min-width:0}.instruction{padding:10px}.tabs{flex-wrap:wrap}.tab{padding:7px}.tab-tools{margin-left:0}.status{font-size:11px}}
@@ -82,7 +82,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 .workspace-footer{background:#f5faff;border-top:1px solid #dbeaf2;padding:12px;gap:9px}
 .run-btn{background:#27af61;border-radius:10px;padding:10px 14px;box-shadow:0 3px 0 #16864a}
 .step-btn,.reset-btn{border-radius:9px;padding:9px 11px;border-color:#d3e3ed;color:#426277}
-.console{line-height:1.6}
+
 .toast{border-radius:12px;font-weight:750;box-shadow:0 8px 24px #15334730}
 .modal{border-radius:18px}
 @media(max-width:850px){.topbar{height:auto;min-height:60px;padding:10px 12px;flex-wrap:wrap}.app{height:auto;grid-template-columns:1fr;padding:10px}.left{min-height:460px}.right{min-height:620px}.workarea{grid-template-columns:145px minmax(0,1fr)}}
@@ -199,7 +199,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   <section class="right">
     <div class="card instruction"><div class="mascot rabbit-badge" aria-label="Maskot kelinci" role="img"></div><p><b>Petunjuk level</b><br>Ikuti jalur emas, hindari semak dan batu, lalu bantu Kiko mencapai bendera. Susun blok perintah seperti kepingan puzzle!</p></div>
     <div class="card workspace">
-      <div class="tabs"><button class="tab active" data-tab="blocks">Blok</button><button class="tab" data-tab="workspace">Workspace: <span id="count">0</span> blok</button><button class="tab" data-tab="console">Log program</button><div class="tab-tools"><button class="small-btn" id="showCode">‹› Lihat Kode</button><button class="small-btn" id="clearProgram">Hapus Semua</button></div></div>
+      <div class="tabs"><button class="tab active" data-tab="blocks">Blok</button><button class="tab" data-tab="workspace">Workspace: <span id="count">0</span> blok</button><div class="tab-tools"><button class="small-btn" id="clearProgram">Hapus Semua</button></div></div>
       <div class="workarea">
         <aside class="toolbox" id="toolbox"><h3>Perintah</h3>
           <div class="block move" draggable="true" data-type="forward">⬆ maju</div>
@@ -216,7 +216,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
           <div class="program" id="program" aria-label="Area program">
             <div class="program-empty" id="empty">Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.</div>
           </div>
-          <div class="console" id="console">Log program akan tampil di sini.</div>
+          
           <div class="workspace-footer"><button class="run-btn" id="runProgram">▶ Jalankan</button><button class="step-btn" id="stepProgram">Langkah</button><button class="reset-btn" id="resetRobot">↻ Reset robot</button></div>
         </section>
       </div>
@@ -228,7 +228,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
 <script>
 (() => {
   const $ = s => document.querySelector(s);
-  const mazeEl = $('#maze'), programEl = $('#program'), consoleEl = $('#console');
+  const mazeEl = $('#maze'), programEl = $('#program');
   // 9x9 maze: 0 = open, 1 = wall. The path winds from bottom-left to top-right.
   // Jalur emas adalah lintasan yang bisa dilewati; rumput di luar jalur adalah semak/area terhalang.
   const route = new Set([
@@ -307,13 +307,16 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     }
   }
   function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-  function log(msg){consoleEl.textContent += '\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
   function setStatus(msg){$('#mazeStatus').textContent=msg}
+  function setRunButtonState(state){
+    const labels={idle:'▶ Jalankan',running:'⏳ Berjalan…',retry:'↻ Coba Lagi',won:'✓ Berhasil!'};
+    ['#runMaze','#runProgram'].forEach(selector=>{const button=$(selector);if(button)button.textContent=labels[state]||labels.idle;});
+  }
   function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Kiko di titik awal');}
   function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
   function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika depan terbuka → maju',ifleft:'↰ jika kiri terbuka → belok kiri',ifright:'↱ jika kanan terbuka → belok kanan'})[type]||type}
   function addItem(type,n=4){
-    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});
+    items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});setRunButtonState('idle');
     renderProgram();updateCount();
   }
   function renderProgram(){
@@ -327,7 +330,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
         [2,4,6,8,10].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;if(v===item.n)o.selected=true;sel.append(o)});
         sel.addEventListener('change',e=>{item.n=Number(e.target.value);renderProgram()});b.append(sel);
       }
-      const del=document.createElement('button');del.className='remove';del.textContent='×';del.title='Hapus blok';del.addEventListener('click',e=>{e.stopPropagation();items.splice(index,1);renderProgram();updateCount()});b.append(del);
+      const del=document.createElement('button');del.className='remove';del.textContent='×';del.title='Hapus blok';del.addEventListener('click',e=>{e.stopPropagation();items.splice(index,1);renderProgram();updateCount();setRunButtonState('idle')});b.append(del);
       row.append(b);
       if(['repeat','if','ifleft','ifright'].includes(item.type)){
         const child=document.createElement('div');child.className='indent';row.append(child);
@@ -355,13 +358,13 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function pathAhead(offset=0){const d=dirs[(dir+offset+4)%4];return isOpen(robot.r+d.r,robot.c+d.c)}
   function act(type){
     if(won)return false;
-    if(type==='left'){dir=(dir+3)%4;drawMaze();log('Kiko belok kiri');return true}
-    if(type==='right'){dir=(dir+1)%4;drawMaze();log('Kiko belok kanan');return true}
+    if(type==='left'){dir=(dir+3)%4;drawMaze();return true}
+    if(type==='right'){dir=(dir+1)%4;drawMaze();return true}
     if(type==='forward'){
       const d=dirs[dir], nr=robot.r+d.r,nc=robot.c+d.c;
-      if(!isOpen(nr,nc)){setStatus('Ada tembok!');log('⛔ Jalur terhalang.');return false}
-      robot={r:nr,c:nc};drawMaze();log(`Maju ke (${nr+1}, ${nc+1})`);
-      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');log('🎉 Kiko sampai! Hebat!');toast('Hebat! Kiko berhasil sampai ke bendera!');return true}
+      if(!isOpen(nr,nc)){setStatus('Ada tembok!');return false}
+      robot={r:nr,c:nc};drawMaze();
+      if(robot.r===goal.r&&robot.c===goal.c){won=true;setStatus('🎉 Berhasil!');toast('Hebat! Kiko berhasil sampai ke bendera!');return true}
       return true;
     }
     return true;
@@ -390,7 +393,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
     if(['if','ifleft','ifright'].includes(item.type)){
       const offset=item.type==='ifleft'?-1:item.type==='ifright'?1:0;
       const clear=pathAhead(offset);
-      log(`Periksa jalur ${offset===-1?'kiri':offset===1?'kanan':'depan'}: ${clear?'terbuka':'terhalang'}`);
+      
       if(!clear)return true;
       await new Promise(resolve=>setTimeout(resolve,260));
       if(item.type==='ifleft')return act('left');
@@ -402,39 +405,62 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   }
   async function runAll(){
     if(running)return;
-    if(!items.length){toast('Tambahkan blok perintah terlebih dahulu.');return}
-    running=true;resetRobot();consoleEl.textContent='▶ Program dimulai';consoleEl.classList.add('show');
+    if(!items.length){toast('Susun blok perintah dulu, ya!');return}
+    running=true;
+    stepQueue=[];
+    resetRobot();
+    setStatus('Kiko mulai berjalan…');
+    setRunButtonState('running');
+    let blocked=false;
     const queue=compile();
     for(const item of queue){
       if(won)break;
       const ok=await executeItem(item);
-      if(!ok){setStatus('Program berhenti: jalur terhalang');break}
+      if(!ok){blocked=true;break}
     }
-    if(!won&&robot.r!==goal.r||!won&&robot.c!==goal.c)setStatus('Program selesai — coba lagi');
+    if(!won){
+      setStatus(blocked?'Kiko terhalang — perbaiki blok, lalu coba lagi!':'Belum berhasil — perbaiki blok dan ulangi level!');
+      toast(blocked?'Ups! Jalurnya terhalang. Perbaiki blok lalu coba lagi.':'Kiko belum sampai bendera. Ubah program dan jalankan lagi dari awal.');
+      setRunButtonState('retry');
+    } else {
+      setRunButtonState('won');
+    }
     running=false;
   }
   async function oneStep(){
-    if(running)return;
-    if(!stepQueue.length){resetRobot();stepQueue=compile();consoleEl.textContent='▶ Mode langkah dimulai';consoleEl.classList.add('show')}
+    if(running||won)return;
+    if(!stepQueue.length){
+      resetRobot();
+      stepQueue=compile();
+      if(!stepQueue.length){toast('Susun blok perintah dulu, ya!');return}
+      setStatus('Mode langkah dimulai');
+      setRunButtonState('running');
+    }
     const next=stepQueue.shift();
-    if(!next){setStatus('Semua langkah selesai');return}
+    if(!next){setStatus('Belum berhasil — perbaiki program lalu ulangi.');setRunButtonState('retry');return}
     running=true;
-    await executeItem(next);
+    const ok=await executeItem(next);
     running=false;
-    if(!stepQueue.length&&!won)setStatus('Semua langkah selesai');
+    if(!ok){
+      stepQueue=[];
+      setStatus('Kiko terhalang — perbaiki blok dan ulangi!');
+      toast('Perbaiki program lalu mulai lagi dari awal.');
+      setRunButtonState('retry');
+    } else if(won){
+      setRunButtonState('won');
+    } else if(!stepQueue.length){
+      setStatus('Belum berhasil — perbaiki blok dan coba lagi!');
+      toast('Percobaan selesai. Perbaiki program lalu ulangi dari awal.');
+      setRunButtonState('retry');
+    }
   }
   $('#runProgram').addEventListener('click',runAll);$('#runMaze').addEventListener('click',runAll);
   $('#stepProgram').addEventListener('click',oneStep);$('#stepMaze').addEventListener('click',oneStep);
-  $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];consoleEl.textContent='Kiko kembali ke titik awal.'});
+  $('#resetRobot').addEventListener('click',()=>{resetRobot();stepQueue=[];setRunButtonState('idle');setStatus('Kiko siap mencoba lagi');});
   $('#clearProgram').addEventListener('click',()=>{items=[];stepQueue=[];renderProgram();toast('Program dikosongkan.')});
-  $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();consoleEl.textContent='Level diulang.';setStatus('Siap memulai')});
-  $('#showCode').addEventListener('click',()=>{
-    const lines=items.map((x,i)=>`${i+1}. ${x.type==='repeat'?`ulangi ${x.n} kali { maju }`:x.type==='if'?'jika depan terbuka → maju':x.type==='ifleft'?'jika kiri terbuka → belok kiri':x.type==='ifright'?'jika kanan terbuka → belok kanan':x.type==='forward'?'maju':x.type==='left'?'belok kiri':'belok kanan'}`);
-    consoleEl.textContent='// Representasi program visual\n'+(lines.join('\n')||'// Belum ada blok.');consoleEl.classList.add('show');document.querySelector('[data-tab="console"]').classList.add('active');
-  });
+  $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();setRunButtonState('idle');setStatus('Level diulang — susun program baru!');toast('Level dimulai kembali dari awal.');});
   document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));tab.classList.add('active');
-    consoleEl.classList.toggle('show',tab.dataset.tab==='console');
     if(tab.dataset.tab==='workspace')programEl.scrollIntoView({block:'nearest'});
   }));
   function openHelp(title,text){$('#modalTitle').textContent=title;$('#modalText').textContent=text;$('#modal').classList.add('open')}
