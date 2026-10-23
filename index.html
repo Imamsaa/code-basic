@@ -807,7 +807,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       });
       if(isContainer(item)){
         const frame=document.createElement('div');
-        frame.className='block-container '+(item.type==='event-start'?'event-container':item.type==='repeat'?'loop-container':item.type==='if'?'condition-container':item.type==='ifleft'?'left-container':'right-container');
+        frame.className='block-container '+(item.type==='event-start'?'event-container':item.type==='repeat'?'loop-container':item.type==='forever'?'forever-container':item.type==='ifelse'?'ifelse-container':item.type==='if'?'condition-container':item.type==='ifleft'?'left-container':'right-container');
         const header=document.createElement('div');
         header.className='control-header';
         const title=document.createElement('span');
