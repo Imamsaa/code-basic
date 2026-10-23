@@ -700,6 +700,10 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       if(movingId===beforeId)return;
       const candidate=findNode(items,movingId);
       if(!candidate)return;
+      if(candidate.type==='event-start'&&ownerId){
+        toast('Blok “ketika mulai diklik” harus berada di bagian utama program.');
+        return;
+      }
       if(ownerId&&containsNode(candidate,ownerId)){
         toast('Blok tidak bisa dimasukkan ke dalam dirinya sendiri.');
         return;
