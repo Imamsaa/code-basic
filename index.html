@@ -34,6 +34,7 @@ button{font:inherit;cursor:pointer;border:0}button:focus-visible,[tabindex]:focu
 @media(max-width:480px){.topbar{height:auto;min-height:54px;flex-wrap:wrap;padding:8px}.progress{display:none}.top-actions{margin-left:auto}.app{grid-template-columns:minmax(0,1fr)}.left{min-height:410px}.workarea{grid-template-columns:112px minmax(0,1fr)}.toolbox{padding:6px}.block{font-size:11px;padding:8px}.program-item .block{min-width:0}.instruction{padding:10px}.tabs{flex-wrap:wrap}.tab{padding:7px}.tab-tools{margin-left:0}.status{font-size:11px}}
 
 /* --- Kid-friendly visual refresh --- */
+.goal:after{content:none}.start-cell{outline:2px solid #fff7;outline-offset:-4px}.obstacle{filter:saturate(.95)}
 body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent 1px);background-size:18px 18px}
 .topbar{height:64px;background:linear-gradient(100deg,#05a9ba,#087fc3);box-shadow:0 4px 0 #0878a91a;padding:0 22px}
 .brand-mark span{border-radius:5px;box-shadow:0 2px 0 #ffffff55}
@@ -181,7 +182,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   function log(msg){consoleEl.textContent += '\\n'+msg;consoleEl.scrollTop=consoleEl.scrollHeight}
   function setStatus(msg){$('#mazeStatus').textContent=msg}
   function resetRobot(){robot={...start};dir=0;won=false;drawMaze();setStatus('Robot di titik awal');}
-  function updateCount(){const n=items.length;$('#count').textContent=n;$('#empty').style.display=n?'none':'block';}
+  function updateCount(){const n=items.length;$('#count').textContent=n;let empty=$('#empty');if(!empty){empty=document.createElement('div');empty.className='program-empty';empty.id='empty';empty.innerHTML='Mulai susun programmu di sini.<br>💡 Klik blok di sebelah kiri untuk menambahkannya.';programEl.prepend(empty);}empty.style.display=n?'none':'block';}
   function blockLabel(type,n){return ({forward:'⬆ maju',left:'↶ belok kiri',right:'↷ belok kanan',repeat:`⟳ ulangi ${n} kali`,if:'◆ jika depan terbuka → maju',ifleft:'↰ jika kiri terbuka → belok kiri',ifright:'↱ jika kanan terbuka → belok kanan'})[type]||type}
   function addItem(type,n=4){
     items.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),type,n:Number(n)||4});
@@ -207,7 +208,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
       row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(index));e.dataTransfer.effectAllowed='move'});
       row.addEventListener('dragover',e=>{e.preventDefault();row.classList.add('drop-target')});
       row.addEventListener('dragleave',()=>row.classList.remove('drop-target'));
-      row.addEventListener('drop',e=>{e.preventDefault();row.classList.remove('drop-target');const from=Number(e.dataTransfer.getData('text/plain'));if(Number.isInteger(from)&&from!==index){const [moved]=items.splice(from,1);items.splice(index,0,moved);renderProgram()}});
+      row.addEventListener('drop',e=>{e.preventDefault();e.stopPropagation();row.classList.remove('drop-target');const val=e.dataTransfer.getData('text/plain');if(val.startsWith('new:')){const [,type,n]=val.split(':');addItem(type,n);return;}const from=Number(val);if(Number.isInteger(from)&&from>=0&&from<items.length&&from!==index){const [moved]=items.splice(from,1);items.splice(index,0,moved);renderProgram()}});
       programEl.append(row);
     });
     updateCount();
@@ -300,7 +301,7 @@ body{background:#eff8ff;background-image:radial-gradient(#d5ebfb 1px,transparent
   $('#clearProgram').addEventListener('click',()=>{items=[];stepQueue=[];renderProgram();toast('Program dikosongkan.')});
   $('#resetTop').addEventListener('click',()=>{resetRobot();stepQueue=[];items=[];renderProgram();consoleEl.textContent='Level diulang.';setStatus('Siap memulai')});
   $('#showCode').addEventListener('click',()=>{
-    const lines=items.map((x,i)=>`${i+1}. ${x.type==='repeat'?`ulangi ${x.n} kali { maju }`:x.type==='if'?'jika jalur depan → maju':x.type==='ifleft'?'jika jalur kiri → maju':x.type==='ifright'?'jika jalur kanan → maju':x.type==='forward'?'maju':x.type==='left'?'belok kiri':'belok kanan'}`);
+    const lines=items.map((x,i)=>`${i+1}. ${x.type==='repeat'?`ulangi ${x.n} kali { maju }`:x.type==='if'?'jika depan terbuka → maju':x.type==='ifleft'?'jika kiri terbuka → belok kiri':x.type==='ifright'?'jika kanan terbuka → belok kanan':x.type==='forward'?'maju':x.type==='left'?'belok kiri':'belok kanan'}`);
     consoleEl.textContent='// Representasi program visual\\n'+(lines.join('\\n')||'// Belum ada blok.');consoleEl.classList.add('show');document.querySelector('[data-tab="console"]').classList.add('active');
   });
   document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
